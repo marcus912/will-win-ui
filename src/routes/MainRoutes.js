@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project imports
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
+import PurchaseItem from '../views/purchase/PurchaseItem';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
@@ -20,42 +21,46 @@ const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
-    path: '/',
-    element: <MainLayout />,
-    children: [
-        {
-            path: '/',
-            element: <DashboardDefault />
-        },
-        {
-            path: '/dashboard/default',
-            element: <DashboardDefault />
-        },
-        {
-            path: '/utils/util-typography',
-            element: <UtilsTypography />
-        },
-        {
-            path: '/utils/util-color',
-            element: <UtilsColor />
-        },
-        {
-            path: '/utils/util-shadow',
-            element: <UtilsShadow />
-        },
-        {
-            path: '/icons/tabler-icons',
-            element: <UtilsTablerIcons />
-        },
-        {
-            path: '/icons/material-icons',
-            element: <UtilsMaterialIcons />
-        },
-        {
-            path: '/sample-page',
-            element: <SamplePage />
-        }
-    ]
+  path: '/',
+  element: <MainLayout />,
+  children: [
+    {
+      path: '/',
+      element: <DashboardDefault />
+    },
+    {
+      path: '/dashboard/default',
+      element: <DashboardDefault />
+    },
+    {
+      path: '/utils/util-typography',
+      element: <UtilsTypography />
+    },
+    {
+      path: '/utils/util-color',
+      element: <UtilsColor />
+    },
+    {
+      path: '/utils/util-shadow',
+      element: <UtilsShadow />
+    },
+    {
+      path: '/icons/tabler-icons',
+      element: <UtilsTablerIcons />
+    },
+    {
+      path: '/icons/material-icons',
+      element: <UtilsMaterialIcons />
+    },
+    {
+      path: '/sample-page',
+      element: <SamplePage />
+    },
+    {
+      path: '/purchase/item',
+      element: <PurchaseItem />
+    }
+  ]
 };
 
 export default MainRoutes;
