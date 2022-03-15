@@ -10,7 +10,7 @@ export const fetchPurchaseItems = createAsyncThunk('purchase/fetchPurchaseItems'
   return response.data;
 });
 
-const notificationsSlice = createSlice({
+const purchaseSlice = createSlice({
   name: 'purchase',
   initialState: {
     items: []
@@ -23,6 +23,6 @@ const notificationsSlice = createSlice({
   }
 });
 
-export default notificationsSlice.reducer;
-
 export const selectPurchaseItems = (state) => _.get(state, 'items', []);
+
+export default purchaseSlice.reducer;

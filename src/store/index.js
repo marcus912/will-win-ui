@@ -1,9 +1,12 @@
-import { createStore } from 'redux';
-import reducer from './reducer';
+import { configureStore } from '@reduxjs/toolkit';
+import customizationReducer from './customizationReducer';
+import purchaseReducer from '../views/purchase/_purchaseSlice';
 
 // ==============================|| REDUX - MAIN STORE ||============================== //
 
-const store = createStore(reducer);
-const persister = 'Free';
-
-export { store, persister };
+export default configureStore({
+  reducer: {
+    customization: customizationReducer,
+    purchase: purchaseReducer
+  }
+});

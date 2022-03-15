@@ -7,20 +7,20 @@ import { Provider } from 'react-redux';
 // project imports
 import * as serviceWorker from 'serviceWorker';
 import App from 'App';
-import { store } from 'store';
 
 // style + assets
 import 'assets/scss/style.scss';
+import store from './store';
 
 // ==============================|| REACT DOM RENDER  ||============================== //
 
 ReactDOM.render(
-    <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
