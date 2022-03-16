@@ -23,6 +23,7 @@
     "apexcharts": "^3.26.1",
     "axios": "^0.26.1",
     "clsx": "^1.1.1",
+    "debug": "^4.3.3",
     "formik": "^2.2.6",
     "framer-motion": "^4.1.13",
     "gh-pages": "^3.2.3",
