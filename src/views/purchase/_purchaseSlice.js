@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import * as _ from 'lodash';
+import debug from 'debug';
+
+const logger = debug('ww:purchase-purchaseSlice');
 
 export const fetchPurchaseItems = createAsyncThunk('purchase/fetchPurchaseItems', async (_, { getState }) => {
   // const allNotifications = selectAllNotifications(getState());
@@ -23,6 +26,9 @@ const purchaseSlice = createSlice({
   }
 });
 
-export const selectPurchaseItems = (state) => _.get(state, 'items', []);
+export const selectPurchaseItems = (state) => {
+  logger('state changed: ', state);
+  return _.get(state, 'purchase.items', []);
+};
 
 export default purchaseSlice.reducer;

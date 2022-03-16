@@ -32,7 +32,7 @@ const columns = [
 ];
 
 const PurchaseItemsPage = () => (
-  <MainCard title='進貨品名'>
+  <MainCard title="進貨品名">
     <RowEditControlGrid />
   </MainCard>
 );
@@ -58,13 +58,13 @@ function RowEditControlGrid() {
           rows={items}
           columns={columns}
           editRowsModel={editRowsModel}
-          editMode='row'
+          editMode="row"
           onEditRowsModelChange={handleEditRowsModelChange}
           autoPageSize
           rowHeight={40}
         />
       </div>
-      <Alert severity='info' style={{ marginTop: 8 }}>
+      <Alert severity="info" style={{ marginTop: 8 }}>
         <code>editRowsModel: {JSON.stringify(editRowsModel)}</code>
       </Alert>
     </div>
