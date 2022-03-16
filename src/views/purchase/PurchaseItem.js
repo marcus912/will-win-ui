@@ -1,8 +1,8 @@
 import MainCard from '../../ui-component/cards/MainCard';
-import { DataGrid } from '@mui/x-data-grid';
+import {DataGrid} from '@mui/x-data-grid';
 import Alert from '@mui/material/Alert';
-import { useCallback, useState } from 'react';
-import { mockRows } from './Random';
+import {useCallback, useState} from 'react';
+import {mockRows} from './random';
 
 const columns = [
   { field: 'name', headerName: 'Name', width: 180, editable: true },
@@ -24,7 +24,7 @@ const columns = [
 ];
 
 const PurchaseItem = () => (
-  <MainCard title='進貨品名'>
+  <MainCard title="進貨品名">
     <RowEditControlGrid />
   </MainCard>
 );
@@ -43,13 +43,13 @@ function RowEditControlGrid() {
           rows={mockRows}
           columns={columns}
           editRowsModel={editRowsModel}
-          editMode='row'
+          editMode="row"
           onEditRowsModelChange={handleEditRowsModelChange}
           autoPageSize
           rowHeight={40}
         />
       </div>
-      <Alert severity='info' style={{ marginTop: 8 }}>
+      <Alert severity="info" style={{ marginTop: 8 }}>
         <code>editRowsModel: {JSON.stringify(editRowsModel)}</code>
       </Alert>
     </div>
