@@ -1,8 +1,8 @@
 import MainCard from '../../ui-component/cards/MainCard';
-import {DataGrid} from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 import Alert from '@mui/material/Alert';
-import {useCallback, useState} from 'react';
-import {mockRows} from './random';
+import { useCallback, useState } from 'react';
+import { mockRows } from './random';
 
 const columns = [
   { field: 'name', headerName: 'Name', width: 180, editable: true },
