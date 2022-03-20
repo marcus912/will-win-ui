@@ -85,8 +85,8 @@ const MainLayout = () => {
       {/* header */}
       <AppBar
         enableColorOnDark
-        position='fixed'
-        color='inherit'
+        position="fixed"
+        color="inherit"
         elevation={0}
         sx={{
           bgcolor: theme.palette.background.default,
