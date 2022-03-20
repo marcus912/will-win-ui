@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPurchaseItems, selectPurchaseItems } from '../_purchaseSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import debug from 'debug';
+import { Button } from '@mui/material';
 
 const logger = debug('ww:purchase-items-page');
 
@@ -32,7 +33,7 @@ const columns = [
 ];
 
 const PurchaseItemsPage = () => (
-  <MainCard title="進貨品名">
+  <MainCard title="進貨品名" darkTitle secondary={<Button variant="contained">新增品名</Button>}>
     <RowEditControlGrid />
   </MainCard>
 );
