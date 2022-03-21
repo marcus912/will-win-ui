@@ -7,9 +7,9 @@ export default function themeTypography(theme) {
   return {
     fontFamily: theme?.customization?.fontFamily,
     h6: {
-      fontWeight: 500,
+      fontWeight: 600,
       color: theme.heading,
-      fontSize: '0.75rem'
+      fontSize: '1.25rem'
     },
     h5: {
       fontSize: '0.875rem',
