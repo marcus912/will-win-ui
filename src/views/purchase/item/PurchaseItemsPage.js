@@ -7,6 +7,7 @@ import { fetchPurchaseItems, selectPurchaseItems } from '../_purchaseSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import debug from 'debug';
 import { Button } from '@mui/material';
+import { PurchaseItemDialogForm } from './PurchaseItemDialogForm';
 
 const logger = debug('ww:purchase-items-page');
 
@@ -32,11 +33,23 @@ const columns = [
   // }
 ];
 
-const PurchaseItemsPage = () => (
-  <MainCard title="進貨品名" darkTitle secondary={<Button variant="contained">新增品名</Button>}>
-    <RowEditControlGrid />
-  </MainCard>
-);
+const PurchaseItemsPage = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <MainCard
+      title="進貨品名"
+      darkTitle
+      secondary={
+        <Button onClick={() => setOpen(true)} variant="contained">
+          新增品名
+        </Button>
+      }
+    >
+      <RowEditControlGrid />
+      <PurchaseItemDialogForm open={open} setOpen={setOpen} />
+    </MainCard>
+  );
+};
 
 function RowEditControlGrid() {
   const dispatch = useDispatch();
