@@ -3,11 +3,12 @@ import { DataGrid } from '@mui/x-data-grid';
 import Alert from '@mui/material/Alert';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPurchaseItems, selectPurchaseItems } from '../_purchaseSlice';
+import { fetchPurchaseItems, selectPurchaseItems, selectPurchaseItemsLoadingState } from '../_purchaseSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 import debug from 'debug';
 import { Button } from '@mui/material';
 import { PurchaseItemDialogForm } from './PurchaseItemDialogForm';
+import { LoadingState } from '../../../utils/util';
 
 const logger = debug('ww:purchase-items-page');
 
@@ -58,12 +59,15 @@ function RowEditControlGrid() {
     setEditRowsModel(model);
   }, []);
   const items = useSelector(selectPurchaseItems);
+  const loadingState = useSelector(selectPurchaseItemsLoadingState);
   useEffect(() => {
-    dispatch(fetchPurchaseItems())
-      .then(unwrapResult)
-      .then((data) => logger('Purchase items: ', data))
-      .catch((e) => logger('Fetch purchase items failure.', e));
-  }, [dispatch]);
+    if (loadingState === LoadingState.NONE) {
+      dispatch(fetchPurchaseItems())
+        .then(unwrapResult)
+        .then((data) => logger('Purchase items: ', data))
+        .catch((e) => logger('Fetch purchase items failure.', e));
+    }
+  }, [dispatch, loadingState]);
 
   return (
     <div style={{ width: '100%' }}>
