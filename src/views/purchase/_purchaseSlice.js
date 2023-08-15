@@ -7,11 +7,22 @@ import { LoadingState, unwrapErrorResponse } from '../../utils/util';
 const logger = debug('ww:purchase-purchaseSlice');
 
 export const fetchPurchaseItems = createAsyncThunk('purchase/fetchPurchaseItems', async () => {
-  // const allNotifications = selectAllNotifications(getState());
-  // const [latestNotification] = allNotifications;
-  // const latestTimestamp = latestNotification ? latestNotification.date : '';
-  const response = await axios.get(`http://localhost:8080/purchase/items`).then();
-  return response;
+  const response = await axios.get(`https://private-1baef-willwin.apiary-mock.com//questions`).then();
+  console.log(response.data);
+  const nweresponse = response.data;
+  return nweresponse;
+
+  // const response = {
+  //   data: [
+  //     {
+  //       id: 1,
+  //       name: 'item001',
+  //       comment: 'item 01 comment',
+  //       status: 'inactive'
+  //     }
+  //   ]
+  // };
+  // return response;
 });
 
 export const postPurchaseItem = createAsyncThunk('purchase/postPurchaseItem', async (data) => {
