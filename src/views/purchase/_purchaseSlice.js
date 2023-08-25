@@ -7,7 +7,7 @@ import { LoadingState, unwrapErrorResponse } from '../../utils/util';
 const logger = debug('ww:purchase-purchaseSlice');
 
 export const fetchPurchaseItems = createAsyncThunk('purchase/fetchPurchaseItems', async () => {
-  const response = await axios.get(`https://private-1baef-willwin.apiary-mock.com//questions`).then();
+  const response = await axios.get(`https://private-1baef-willwin.apiary-mock.com/purchase`).then();
   console.log(response.data);
   const nweresponse = response.data;
   return nweresponse;
