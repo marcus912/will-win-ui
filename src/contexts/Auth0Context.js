@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import {createContext, useEffect, useReducer} from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 
 // third-party
-import {Auth0Client} from '@auth0/auth0-spa-js';
+import { Auth0Client } from '@auth0/auth0-spa-js';
 
 // project imports
 import Loader from 'ui-component/Loader';
 
-import {LOGIN, LOGOUT} from 'store/actions';
+import { LOGIN, LOGOUT } from 'store/actions';
 import accountReducer from 'store/accountReducer';
 
 // constant

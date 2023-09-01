@@ -1,8 +1,8 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
 // material-ui
-import {useTheme} from '@mui/material/styles';
-import {FormControlLabel, Grid, Radio, RadioGroup, Stack, Typography} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { FormControlLabel, Grid, Radio, RadioGroup, Stack, Typography } from '@mui/material';
 
 // project imports
 import useConfig from 'hooks/useConfig';

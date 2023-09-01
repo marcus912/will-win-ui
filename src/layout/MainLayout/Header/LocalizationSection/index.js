@@ -1,7 +1,7 @@
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // material-ui
-import {useTheme} from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import {
     Avatar,
     Box,

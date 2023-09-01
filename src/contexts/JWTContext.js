@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import {createContext, useEffect, useReducer} from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 
 // third-party
-import {Chance} from 'chance';
+import { Chance } from 'chance';
 import jwtDecode from 'jwt-decode';
 
 // reducer - state management
-import {LOGIN, LOGOUT} from 'store/actions';
+import { LOGIN, LOGOUT } from 'store/actions';
 import accountReducer from 'store/accountReducer';
 
 // project imports

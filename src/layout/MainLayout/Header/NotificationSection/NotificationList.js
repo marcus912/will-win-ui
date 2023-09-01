@@ -1,5 +1,5 @@
 // material-ui
-import {styled, useTheme} from '@mui/material/styles';
+import { useTheme, styled } from '@mui/material/styles';
 import {
     Avatar,
     Button,
@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 
 // assets
-import {IconBrandTelegram, IconBuildingStore, IconMailbox, IconPhoto} from '@tabler/icons';
+import { IconBrandTelegram, IconBuildingStore, IconMailbox, IconPhoto } from '@tabler/icons';
 import User1 from 'assets/images/users/user-round.svg';
 
 // styles

@@ -1,8 +1,8 @@
-import {useEffect, useRef, useState} from 'react';
-import {Link} from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 // material-ui
-import {useTheme} from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import {
     Avatar,
     Box,
@@ -29,7 +29,7 @@ import Transitions from 'ui-component/extended/Transitions';
 import NotificationList from './NotificationList';
 
 // assets
-import {IconBell} from '@tabler/icons';
+import { IconBell } from '@tabler/icons';
 
 // notification status options
 const status = [

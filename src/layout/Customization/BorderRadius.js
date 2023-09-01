@@ -1,6 +1,6 @@
 // material-ui
-import {useTheme} from '@mui/material/styles';
-import {Grid, Slider, Stack, Typography} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Grid, Slider, Stack, Typography } from '@mui/material';
 
 // project imports
 import useConfig from 'hooks/useConfig';

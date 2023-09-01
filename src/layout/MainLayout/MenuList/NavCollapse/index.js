@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import {useEffect, useState} from 'react';
-import {useLocation} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 // material-ui
-import {styled, useTheme} from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import {
     Box,
     ClickAwayListener,
@@ -22,12 +22,12 @@ import {
 import NavItem from '../NavItem';
 import Transitions from 'ui-component/extended/Transitions';
 
-import {useSelector} from 'store';
+import { useSelector } from 'store';
 import LAYOUT_CONST from 'constant';
 import useConfig from 'hooks/useConfig';
 
 // assets
-import {IconChevronDown, IconChevronRight, IconChevronUp} from '@tabler/icons';
+import { IconChevronDown, IconChevronRight, IconChevronUp } from '@tabler/icons';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 // mini-menu - wrapper

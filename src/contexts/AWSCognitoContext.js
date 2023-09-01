@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import React, {createContext, useEffect, useReducer} from 'react';
+import React, { createContext, useEffect, useReducer } from 'react';
 
 // third-party
-import {AuthenticationDetails, CognitoUser, CognitoUserAttribute, CognitoUserPool} from 'amazon-cognito-identity-js';
+import { CognitoUser, CognitoUserPool, CognitoUserAttribute, AuthenticationDetails } from 'amazon-cognito-identity-js';
 
 // project imports
 import Loader from 'ui-component/Loader';
 
-import {LOGIN, LOGOUT} from 'store/actions';
+import { LOGIN, LOGOUT } from 'store/actions';
 import accountReducer from 'store/accountReducer';
 
 // constant

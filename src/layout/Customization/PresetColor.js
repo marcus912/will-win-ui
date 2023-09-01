@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 
 // material-ui
-import {useTheme} from '@mui/material/styles';
-import {Grid, Stack, Typography} from '@mui/material';
-import {IconCheck} from '@tabler/icons';
+import { useTheme } from '@mui/material/styles';
+import { Grid, Stack, Typography } from '@mui/material';
+import { IconCheck } from '@tabler/icons';
 
 // project imports
 import Avatar from 'ui-component/extended/Avatar';

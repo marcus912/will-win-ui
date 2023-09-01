@@ -1,15 +1,15 @@
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // material-ui
-import {useTheme} from '@mui/material/styles';
-import {AppBar, Box, ClickAwayListener, Grid, IconButton, Paper, Popper, Toolbar, useMediaQuery} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { AppBar, Box, IconButton, ClickAwayListener, Grid, Paper, Popper, Toolbar, useMediaQuery } from '@mui/material';
 
 // project imports
 import LocalizationSection from '../LocalizationSection';
 import Transitions from 'ui-component/extended/Transitions';
 
 // assets
-import {IconDotsVertical} from '@tabler/icons';
+import { IconDotsVertical } from '@tabler/icons';
 
 // ==============================|| MOBILE HEADER ||============================== //
 

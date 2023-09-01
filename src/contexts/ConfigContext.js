@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {createContext} from 'react';
+import { createContext } from 'react';
 
 // project import
 import defaultConfig from 'config';

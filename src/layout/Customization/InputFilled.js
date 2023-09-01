@@ -1,6 +1,6 @@
 // material-ui
-import {useTheme} from '@mui/material/styles';
-import {FormControlLabel, Radio, RadioGroup, Stack, Typography} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { FormControlLabel, Radio, RadioGroup, Stack, Typography } from '@mui/material';
 
 // project-imports
 import Avatar from 'ui-component/extended/Avatar';

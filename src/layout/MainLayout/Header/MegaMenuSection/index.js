@@ -1,21 +1,21 @@
-import {useEffect, useRef, useState} from 'react';
-import {Link} from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 // material-ui
-import {styled, useTheme} from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import {
+    useMediaQuery,
     Avatar,
     ClickAwayListener,
     Grid,
     List,
     ListItemButton,
     ListItemIcon,
-    ListItemText,
     ListSubheader,
+    ListItemText,
     Paper,
     Popper,
-    Typography,
-    useMediaQuery
+    Typography
 } from '@mui/material';
 
 // project imports
@@ -25,8 +25,8 @@ import Transitions from 'ui-component/extended/Transitions';
 
 // assets
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import {IconAccessPoint} from '@tabler/icons';
-import {drawerWidth, gridSpacing} from 'store/constant';
+import { IconAccessPoint } from '@tabler/icons';
+import { drawerWidth, gridSpacing } from 'store/constant';
 
 const HeaderAvatarStyle = styled(Avatar)(({ theme }) => ({
     ...theme.typography.commonAvatar,

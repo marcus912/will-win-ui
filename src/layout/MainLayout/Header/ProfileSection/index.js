@@ -1,8 +1,8 @@
-import {useEffect, useRef, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
-import {useTheme} from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import {
     Avatar,
     Box,
@@ -26,7 +26,7 @@ import {
 } from '@mui/material';
 
 // third-party
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 // project imports
@@ -37,7 +37,7 @@ import useAuth from 'hooks/useAuth';
 import User1 from 'assets/images/users/user-round.svg';
 
 // assets
-import {IconLogout, IconSearch, IconSettings, IconUser} from '@tabler/icons';
+import { IconLogout, IconSearch, IconSettings, IconUser } from '@tabler/icons';
 import useConfig from 'hooks/useConfig';
 
 // ==============================|| PROFILE MENU ||============================== //

@@ -1,23 +1,10 @@
 import PropTypes from 'prop-types';
-import {useState} from 'react';
+import { useState } from 'react';
 
 // material-ui
-import {useTheme} from '@mui/material/styles';
-import {
-    Box,
-    Button,
-    Divider,
-    Drawer,
-    Fab,
-    Grid,
-    IconButton,
-    Stack,
-    Tab,
-    Tabs,
-    Tooltip,
-    Typography
-} from '@mui/material';
-import {IconColorSwatch, IconPlus, IconSettings, IconTextSize} from '@tabler/icons';
+import { useTheme } from '@mui/material/styles';
+import { Box, Button, Divider, Drawer, Fab, Grid, IconButton, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import { IconSettings, IconPlus, IconTextSize, IconColorSwatch } from '@tabler/icons';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
