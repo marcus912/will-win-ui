@@ -1,12 +1,24 @@
+// third-party
 import { configureStore } from '@reduxjs/toolkit';
-import customizationReducer from './customizationReducer';
-import purchaseReducer from '../views/purchase/_purchaseSlice';
+import { useDispatch as useAppDispatch, useSelector as useAppSelector } from 'react-redux';
+
+import { persistStore } from 'redux-persist';
+
+// project imports
+import rootReducer from './reducer';
 
 // ==============================|| REDUX - MAIN STORE ||============================== //
 
-export default configureStore({
-  reducer: {
-    customization: customizationReducer,
-    purchase: purchaseReducer
-  }
+const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false, immutableCheck: false })
 });
+
+const persister = persistStore(store);
+
+const { dispatch } = store;
+
+const useDispatch = () => useAppDispatch();
+const useSelector = useAppSelector;
+
+export { store, persister, dispatch, useSelector, useDispatch };

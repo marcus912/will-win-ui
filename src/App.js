@@ -1,41 +1,57 @@
-import { useSelector } from 'react-redux';
-
-import { ThemeProvider } from '@mui/material/styles';
-import { SnackbarProvider } from 'notistack';
-import { CssBaseline, Slide, StyledEngineProvider } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 // routing
 import Routes from 'routes';
 
-// defaultTheme
-import themes from 'themes';
-
 // project imports
+import Locales from 'ui-component/Locales';
 import NavigationScroll from 'layout/NavigationScroll';
+import RTLLayout from 'ui-component/RTLLayout';
+import Snackbar from 'ui-component/extended/Snackbar';
+import Loader from 'ui-component/Loader';
+import Notistack from 'ui-component/third-party/Notistack';
+
+import ThemeCustomization from 'themes';
+import { dispatch } from 'store';
+import { getMenu } from 'store/slices/menu';
+
+// auth provider
+import { JWTProvider as AuthProvider } from 'contexts/JWTContext';
+// import { FirebaseProvider as AuthProvider } from 'contexts/FirebaseContext';
+// import { AWSCognitoProvider as AuthProvider } from 'contexts/AWSCognitoContext';
+// import { Auth0Provider as AuthProvider } from 'contexts/Auth0Context';
 
 // ==============================|| APP ||============================== //
 
 const App = () => {
-  const customization = useSelector((state) => state.customization);
+    const [loading, setLoading] = useState(false);
 
-  return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={themes(customization)}>
-        <SnackbarProvider
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
-          }}
-          TransitionComponent={Slide}
-        >
-          <CssBaseline />
-          <NavigationScroll>
-            <Routes />
-          </NavigationScroll>
-        </SnackbarProvider>
-      </ThemeProvider>
-    </StyledEngineProvider>
-  );
+    useEffect(() => {
+        dispatch(getMenu()).then(() => {
+            setLoading(true);
+        });
+    }, []);
+
+    if (!loading) return <Loader />;
+
+    return (
+        <ThemeCustomization>
+            <RTLLayout>
+                <Locales>
+                    <NavigationScroll>
+                        <AuthProvider>
+                            <>
+                                <Notistack>
+                                    <Routes />
+                                    <Snackbar />
+                                </Notistack>
+                            </>
+                        </AuthProvider>
+                    </NavigationScroll>
+                </Locales>
+            </RTLLayout>
+        </ThemeCustomization>
+    );
 };
 
 export default App;
