@@ -1,218 +1,198 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import {
-  Drawer,
-  Fab,
-  FormControl,
-  FormControlLabel,
-  Grid,
-  IconButton,
-  Radio,
-  RadioGroup,
-  Slider,
-  Tooltip,
-  Typography
-} from '@mui/material';
-import { IconSettings } from '@tabler/icons';
+import { Box, Button, Divider, Drawer, Fab, Grid, IconButton, Stack, Tab, Tabs, Tooltip, Typography } from '@mui/material';
+import { IconSettings, IconPlus, IconTextSize, IconColorSwatch } from '@tabler/icons';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 // project imports
-import SubCard from 'ui-component/cards/SubCard';
-import AnimateButton from 'ui-component/extended/AnimateButton';
-import { SET_BORDER_RADIUS, SET_FONT_FAMILY } from 'store/actions';
-import { gridSpacing } from 'store/constant';
+import FontFamily from './FontFamily';
+import BoxContainer from './BoxContainer';
+import PresetColor from './PresetColor';
+import Layout from './Layout';
+import InputFilled from './InputFilled';
+import BorderRadius from './BorderRadius';
+import ThemeModeLayout from './ThemeMode';
+import SidebarDrawer from './SidebarDrawer';
+import MenuOrientation from './MenuOrientation';
 
-// concat 'px'
-function valueText(value) {
-  return `${value}px`;
-}
+import MainCard from 'ui-component/cards/MainCard';
+import AnimateButton from 'ui-component/extended/AnimateButton';
+import useConfig from 'hooks/useConfig';
 
 // ==============================|| LIVE CUSTOMIZATION ||============================== //
 
+function CustomTabPanel({ children, value, index, ...other }) {
+    return (
+        <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
+            {value === index && (
+                <Box>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+CustomTabPanel.propTypes = {
+    children: PropTypes.node,
+    value: PropTypes.number,
+    index: PropTypes.number
+};
+
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`
+    };
+}
+
+a11yProps.propTypes = {
+    index: PropTypes.number
+};
+
 const Customization = () => {
-  const theme = useTheme();
-  const dispatch = useDispatch();
-  const customization = useSelector((state) => state.customization);
+    const theme = useTheme();
+    const { onReset } = useConfig();
 
-  // drawer on/off
-  const [open, setOpen] = useState(false);
-  const handleToggle = () => {
-    setOpen(!open);
-  };
+    // drawer on/off
+    const [open, setOpen] = useState(false);
+    const handleToggle = () => {
+        setOpen(!open);
+    };
 
-  // state - border radius
-  const [borderRadius, setBorderRadius] = useState(customization.borderRadius);
-  const handleBorderRadius = (event, newValue) => {
-    setBorderRadius(newValue);
-  };
+    const [value, setValue] = useState(0);
 
-  useEffect(() => {
-    dispatch({ type: SET_BORDER_RADIUS, borderRadius });
-  }, [dispatch, borderRadius]);
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
-  let initialFont;
-  switch (customization.fontFamily) {
-    case `'Inter', sans-serif`:
-      initialFont = 'Inter';
-      break;
-    case `'Poppins', sans-serif`:
-      initialFont = 'Poppins';
-      break;
-    case `'Roboto', sans-serif`:
-    default:
-      initialFont = 'Roboto';
-      break;
-  }
+    return (
+        <>
+            {/* toggle button */}
+            <Tooltip title="Live Customize">
+                <Fab
+                    component="div"
+                    onClick={handleToggle}
+                    size="medium"
+                    variant="circular"
+                    color="secondary"
+                    sx={{
+                        borderRadius: 0,
+                        borderTopLeftRadius: '50%',
+                        borderBottomLeftRadius: '50%',
+                        borderTopRightRadius: '50%',
+                        borderBottomRightRadius: '4px',
+                        top: '25%',
+                        position: 'fixed',
+                        right: 10,
+                        zIndex: 1200,
+                        boxShadow: theme.customShadows.secondary
+                    }}
+                >
+                    <AnimateButton type="rotate">
+                        <IconButton color="inherit" size="large" disableRipple aria-label="live customize">
+                            <IconSettings />
+                        </IconButton>
+                    </AnimateButton>
+                </Fab>
+            </Tooltip>
 
-  // state - font family
-  const [fontFamily, setFontFamily] = useState(initialFont);
-  useEffect(() => {
-    let newFont;
-    switch (fontFamily) {
-      case 'Inter':
-        newFont = `'Inter', sans-serif`;
-        break;
-      case 'Poppins':
-        newFont = `'Poppins', sans-serif`;
-        break;
-      case 'Roboto':
-      default:
-        newFont = `'Roboto', sans-serif`;
-        break;
-    }
-    dispatch({ type: SET_FONT_FAMILY, fontFamily: newFont });
-  }, [dispatch, fontFamily]);
-
-  return (
-    <>
-      {/* toggle button */}
-      <Tooltip title="Live Customize">
-        <Fab
-          component="div"
-          onClick={handleToggle}
-          size="medium"
-          variant="circular"
-          color="secondary"
-          sx={{
-            borderRadius: 0,
-            borderTopLeftRadius: '50%',
-            borderBottomLeftRadius: '50%',
-            borderTopRightRadius: '50%',
-            borderBottomRightRadius: '4px',
-            top: '25%',
-            position: 'fixed',
-            right: 10,
-            zIndex: theme.zIndex.speedDial
-          }}
-        >
-          <AnimateButton type="rotate">
-            <IconButton color="inherit" size="large" disableRipple>
-              <IconSettings />
-            </IconButton>
-          </AnimateButton>
-        </Fab>
-      </Tooltip>
-
-      <Drawer
-        anchor="right"
-        onClose={handleToggle}
-        open={open}
-        PaperProps={{
-          sx: {
-            width: 280
-          }
-        }}
-      >
-        <PerfectScrollbar component="div">
-          <Grid container spacing={gridSpacing} sx={{ p: 3 }}>
-            <Grid item xs={12}>
-              {/* font family */}
-              <SubCard title="Font Family">
-                <FormControl>
-                  <RadioGroup
-                    aria-label="font-family"
-                    value={fontFamily}
-                    onChange={(e) => setFontFamily(e.target.value)}
-                    name="row-radio-buttons-group"
-                  >
-                    <FormControlLabel
-                      value="Roboto"
-                      control={<Radio />}
-                      label="Roboto"
-                      sx={{
-                        '& .MuiSvgIcon-root': { fontSize: 28 },
-                        '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
-                      }}
-                    />
-                    <FormControlLabel
-                      value="Poppins"
-                      control={<Radio />}
-                      label="Poppins"
-                      sx={{
-                        '& .MuiSvgIcon-root': { fontSize: 28 },
-                        '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
-                      }}
-                    />
-                    <FormControlLabel
-                      value="Inter"
-                      control={<Radio />}
-                      label="Inter"
-                      sx={{
-                        '& .MuiSvgIcon-root': { fontSize: 28 },
-                        '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
-                      }}
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </SubCard>
-            </Grid>
-            <Grid item xs={12}>
-              {/* border radius */}
-              <SubCard title="Border Radius">
-                <Grid item xs={12} container spacing={2} alignItems="center" sx={{ mt: 2.5 }}>
-                  <Grid item>
-                    <Typography variant="h6" color="secondary">
-                      4px
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <Slider
-                      size="small"
-                      value={borderRadius}
-                      onChange={handleBorderRadius}
-                      getAriaValueText={valueText}
-                      valueLabelDisplay="on"
-                      aria-labelledby="discrete-slider-small-steps"
-                      marks
-                      step={2}
-                      min={4}
-                      max={24}
-                      color="secondary"
-                      sx={{
-                        '& .MuiSlider-valueLabel': {
-                          color: 'secondary.light'
-                        }
-                      }}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="h6" color="secondary">
-                      24px
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </SubCard>
-            </Grid>
-          </Grid>
-        </PerfectScrollbar>
-      </Drawer>
-    </>
-  );
+            <Drawer anchor="right" onClose={handleToggle} open={open} PaperProps={{ sx: { width: 375 } }}>
+                {open && (
+                    <PerfectScrollbar component="div">
+                        <MainCard content={false} border={false}>
+                            <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1.5} sx={{ p: 2.5 }}>
+                                <Typography variant="h5">Theme Customization</Typography>
+                                <Stack direction="row" alignItems="center" spacing={1.25}>
+                                    <Button variant="outlined" color="error" size="small" onClick={() => onReset()}>
+                                        Reset
+                                    </Button>
+                                    <IconButton sx={{ p: 0 }} onClick={handleToggle}>
+                                        <IconPlus size={24} style={{ transform: 'rotate(45deg)', color: theme.palette.grey[600] }} />
+                                    </IconButton>
+                                </Stack>
+                            </Stack>
+                            <Divider />
+                            <Box sx={{ width: '100%' }}>
+                                <Tabs
+                                    value={value}
+                                    sx={{
+                                        bgcolor: theme.palette.mode === 'dark' ? 'dark.800' : 'grey.50',
+                                        minHeight: 56,
+                                        '& .MuiTabs-flexContainer': { height: '100%' }
+                                    }}
+                                    centered
+                                    onChange={handleChange}
+                                    aria-label="basic tabs example"
+                                >
+                                    <Tab label={<IconColorSwatch />} {...a11yProps(0)} sx={{ width: '50%' }} />
+                                    <Tab label={<IconTextSize />} {...a11yProps(1)} sx={{ width: '50%' }} />
+                                </Tabs>
+                            </Box>
+                            <CustomTabPanel value={value} index={0}>
+                                <Grid container spacing={2.5}>
+                                    <Grid item xs={12}>
+                                        {/* layout type */}
+                                        <ThemeModeLayout />
+                                        <Divider />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        {/* Theme Preset Color */}
+                                        <PresetColor />
+                                        <Divider />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        {/* Input Background */}
+                                        <InputFilled />
+                                        <Divider />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        {/* Theme Width */}
+                                        <BoxContainer />
+                                        <Divider />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        {/* Theme Layout */}
+                                        <Layout />
+                                        <Divider />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        {/* Sidebar Drawer */}
+                                        <SidebarDrawer />
+                                        <Divider />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        {/* Menu Orientation */}
+                                        <MenuOrientation />
+                                        <Divider />
+                                    </Grid>
+                                </Grid>
+                            </CustomTabPanel>
+                            <CustomTabPanel value={value} index={1}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        {/* font family */}
+                                        <FontFamily />
+                                        <Divider />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        {/* border radius */}
+                                        <BorderRadius />
+                                        <Divider />
+                                    </Grid>
+                                </Grid>
+                            </CustomTabPanel>
+                        </MainCard>
+                    </PerfectScrollbar>
+                )}
+            </Drawer>
+        </>
+    );
 };
 
 export default Customization;

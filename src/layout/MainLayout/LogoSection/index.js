@@ -1,18 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
-import { ButtonBase } from '@mui/material';
+import { Link } from '@mui/material';
 
 // project imports
-import config from 'config';
+import { DASHBOARD_PATH } from 'config';
 import Logo from 'ui-component/Logo';
 
 // ==============================|| MAIN LOGO ||============================== //
 
 const LogoSection = () => (
-  <ButtonBase disableRipple component={Link} to={config.defaultPath}>
-    <Logo />
-  </ButtonBase>
+    <Link component={RouterLink} to={DASHBOARD_PATH} aria-label="berry logo">
+        <Logo />
+    </Link>
 );
 
 export default LogoSection;
