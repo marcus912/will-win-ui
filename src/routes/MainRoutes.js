@@ -9,6 +9,9 @@ import AuthGuard from 'utils/route-guard/AuthGuard';
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 const DashboardAnalytics = Loadable(lazy(() => import('views/dashboard/Analytics')));
 
+// willwin routing
+const WillMaterialList = Loadable(lazy(() => import('views/willwin/material/materialList')));
+
 // widget routing
 const WidgetStatistics = Loadable(lazy(() => import('views/widget/Statistics')));
 const WidgetData = Loadable(lazy(() => import('views/widget/Data')));
@@ -140,6 +143,10 @@ const MainRoutes = {
         </AuthGuard>
     ),
     children: [
+        {
+            path: '/material/materiallist',
+            element: <WillMaterialList />
+        },
         {
             path: '/widget/statistics',
             element: <WidgetStatistics />
@@ -392,7 +399,6 @@ const MainRoutes = {
             path: '/forms/forms-wizard',
             element: <FrmFormsWizard />
         },
-
         {
             path: '/basic/accordion',
             element: <BasicUIAccordion />
