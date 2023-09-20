@@ -64,7 +64,6 @@ export default function FormDialog() {
                                         when no apps are running.
                                     </Typography>
                                 </DialogContentText>
-                                {/* <TextField autoFocus size="small" id="name" label="Email Address" type="email" fullWidth /> */}
                                 <CardContent>
                                     <Grid container spacing={2} alignItems="center">
                                         <Grid item xs={6}>

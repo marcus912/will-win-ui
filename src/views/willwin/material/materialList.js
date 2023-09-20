@@ -6,7 +6,6 @@ import { useTheme } from '@mui/material/styles';
 import {
     Box,
     CardContent,
-    Checkbox,
     Grid,
     IconButton,
     InputAdornment,
@@ -19,7 +18,6 @@ import {
     TableRow,
     TableSortLabel,
     TextField,
-    Toolbar,
     Tooltip,
     Typography
 } from '@mui/material';
@@ -33,7 +31,7 @@ import { getOrders } from 'store/slices/customer';
 import SlideDdialog from './materialDialog';
 
 // assets
-import DeleteIcon from '@mui/icons-material/Delete';
+//import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterListTwoTone';
 import PrintIcon from '@mui/icons-material/PrintTwoTone';
 import FileCopyIcon from '@mui/icons-material/FileCopyTwoTone';
@@ -101,7 +99,7 @@ const headCells = [
 
 // ==============================|| TABLE HEADER ||============================== //
 
-function EnhancedTableHead({ onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, theme, selected }) {
+function EnhancedTableHead({ order, orderBy, numSelected, onRequestSort, theme }) {
     const createSortHandler = (property) => (event) => {
         onRequestSort(event, property);
     };
@@ -109,22 +107,6 @@ function EnhancedTableHead({ onSelectAllClick, order, orderBy, numSelected, rowC
     return (
         <TableHead>
             <TableRow>
-                <TableCell padding="checkbox" sx={{ pl: 3 }}>
-                    <Checkbox
-                        color="primary"
-                        indeterminate={numSelected > 0 && numSelected < rowCount}
-                        checked={rowCount > 0 && numSelected === rowCount}
-                        onChange={onSelectAllClick}
-                        inputProps={{
-                            'aria-label': 'select all desserts'
-                        }}
-                    />
-                </TableCell>
-                {numSelected > 0 && (
-                    <TableCell padding="none" colSpan={8}>
-                        <EnhancedTableToolbar numSelected={selected.length} />
-                    </TableCell>
-                )}
                 {numSelected <= 0 &&
                     headCells.map((headCell) => (
                         <TableCell
@@ -168,43 +150,6 @@ EnhancedTableHead.propTypes = {
     order: PropTypes.oneOf(['asc', 'desc']).isRequired,
     orderBy: PropTypes.string.isRequired,
     rowCount: PropTypes.number.isRequired
-};
-
-// ==============================|| TABLE HEADER TOOLBAR ||============================== //
-
-const EnhancedTableToolbar = ({ numSelected }) => (
-    <Toolbar
-        sx={{
-            p: 0,
-            pl: 1,
-            pr: 1,
-            ...(numSelected > 0 && {
-                color: (theme) => theme.palette.secondary.main
-            })
-        }}
-    >
-        {numSelected > 0 ? (
-            <Typography color="inherit" variant="h4">
-                {numSelected} Selected
-            </Typography>
-        ) : (
-            <Typography variant="h6" id="tableTitle">
-                Nutrition
-            </Typography>
-        )}
-        <Box sx={{ flexGrow: 1 }} />
-        {numSelected > 0 && (
-            <Tooltip title="Delete">
-                <IconButton size="large">
-                    <DeleteIcon fontSize="small" />
-                </IconButton>
-            </Tooltip>
-        )}
-    </Toolbar>
-);
-
-EnhancedTableToolbar.propTypes = {
-    numSelected: PropTypes.number.isRequired
 };
 
 // ==============================|| ORDER LIST ||============================== //
@@ -373,15 +318,6 @@ const OrderList = () => {
                                         key={index}
                                         selected={isItemSelected}
                                     >
-                                        <TableCell padding="checkbox" sx={{ pl: 3 }} onClick={(event) => handleClick(event, row.name)}>
-                                            <Checkbox
-                                                color="primary"
-                                                checked={isItemSelected}
-                                                inputProps={{
-                                                    'aria-labelledby': labelId
-                                                }}
-                                            />
-                                        </TableCell>
                                         <TableCell
                                             component="th"
                                             id={labelId}
@@ -421,9 +357,6 @@ const OrderList = () => {
                                         </TableCell>
                                         <TableCell align="center" sx={{ pr: 3 }}>
                                             <SlideDdialog />
-                                            {/* <IconButton color="secondary" size="large" aria-label="edit">
-                                                <EditTwoToneIcon sx={{ fontSize: '1.3rem' }} />
-                                            </IconButton> */}
                                         </TableCell>
                                     </TableRow>
                                 );
