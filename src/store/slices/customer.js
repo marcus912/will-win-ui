@@ -12,7 +12,8 @@ const initialState = {
     customers: [],
     orders: [],
     products: [],
-    productreviews: []
+    productreviews: [],
+    materiallist: []
 };
 
 const slice = createSlice({
@@ -42,6 +43,11 @@ const slice = createSlice({
         // GET PRODUCT REVIEWS
         getProductReviewsSuccess(state, action) {
             state.productreviews = action.payload;
+        },
+
+        // GET MATERIAl
+        getMaterialSuccess(state, action) {
+            state.materiallist = action.payload;
         }
     }
 });
@@ -89,6 +95,17 @@ export function getProductReviews() {
         try {
             const response = await axios.get('/api/customer/product/reviews');
             dispatch(slice.actions.getProductReviewsSuccess(response.data.productreviews));
+        } catch (error) {
+            dispatch(slice.actions.hasError(error));
+        }
+    };
+}
+
+export function getMaterial() {
+    return async () => {
+        try {
+            const response = await axios.get('https://private-1baef-willwin.apiary-mock.com/purchase');
+            dispatch(slice.actions.getMaterialSuccess(response.data.materiallist));
         } catch (error) {
             dispatch(slice.actions.hasError(error));
         }

@@ -27,7 +27,7 @@ import { visuallyHidden } from '@mui/utils';
 import Chip from 'ui-component/extended/Chip';
 import MainCard from 'ui-component/cards/MainCard';
 import { useDispatch, useSelector } from 'store';
-import { getOrders } from 'store/slices/customer';
+import { getMaterial } from 'store/slices/customer';
 import SlideDdialog from './materialDialog';
 
 // assets
@@ -164,13 +164,13 @@ const OrderList = () => {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [search, setSearch] = React.useState('');
     const [rows, setRows] = React.useState([]);
-    const { orders } = useSelector((state) => state.customer);
+    const { materiallist } = useSelector((state) => state.customer);
     React.useEffect(() => {
-        dispatch(getOrders());
+        dispatch(getMaterial());
     }, [dispatch]);
     React.useEffect(() => {
-        setRows(orders);
-    }, [orders]);
+        setRows(materiallist);
+    }, [materiallist]);
     const handleSearch = (event) => {
         const newString = event?.target.value;
         setSearch(newString || '');
@@ -179,7 +179,7 @@ const OrderList = () => {
             const newRows = rows.filter((row) => {
                 let matches = true;
 
-                const properties = ['name', 'company', 'type', 'qty', 'id'];
+                const properties = ['materialname', 'supplier', 'type', 'status', 'id'];
                 let containsQuery = false;
 
                 properties.forEach((property) => {
@@ -195,7 +195,7 @@ const OrderList = () => {
             });
             setRows(newRows);
         } else {
-            setRows(orders);
+            setRows(materiallist);
         }
     };
 
@@ -306,7 +306,7 @@ const OrderList = () => {
                                 /** Make sure no display bugs if row isn't an OrderData object */
                                 if (typeof row === 'number') return null;
 
-                                const isItemSelected = isSelected(row.name);
+                                const isItemSelected = isSelected(row.materialname);
                                 const labelId = `enhanced-table-checkbox-${index}`;
 
                                 return (
@@ -322,7 +322,7 @@ const OrderList = () => {
                                             component="th"
                                             id={labelId}
                                             scope="row"
-                                            onClick={(event) => handleClick(event, row.name)}
+                                            onClick={(event) => handleClick(event, row.materialname)}
                                             sx={{ cursor: 'pointer' }}
                                         >
                                             <Typography
@@ -337,7 +337,7 @@ const OrderList = () => {
                                             component="th"
                                             id={labelId}
                                             scope="row"
-                                            onClick={(event) => handleClick(event, row.name)}
+                                            onClick={(event) => handleClick(event, row.materialname)}
                                             sx={{ cursor: 'pointer' }}
                                         >
                                             <Typography
@@ -345,15 +345,15 @@ const OrderList = () => {
                                                 sx={{ color: theme.palette.mode === 'dark' ? 'grey.600' : 'grey.900' }}
                                             >
                                                 {' '}
-                                                {row.name}{' '}
+                                                {row.materialname}{' '}
                                             </Typography>
                                         </TableCell>
-                                        <TableCell>{row.company}</TableCell>
+                                        <TableCell>{row.supplier}</TableCell>
                                         <TableCell>{row.type}</TableCell>
                                         <TableCell align="center">
-                                            {row.status === 1 && <Chip label="Complete" size="small" chipcolor="success" />}
-                                            {row.status === 2 && <Chip label="Pending" size="small" chipcolor="orange" />}
-                                            {row.status === 3 && <Chip label="Processing" size="small" chipcolor="primary" />}
+                                            {row.status == 1 && <Chip label="Complete" size="small" chipcolor="success" />}
+                                            {row.status == 2 && <Chip label="Pending" size="small" chipcolor="orange" />}
+                                            {row.status == 3 && <Chip label="Processing" size="small" chipcolor="primary" />}
                                         </TableCell>
                                         <TableCell align="center" sx={{ pr: 3 }}>
                                             <SlideDdialog />
