@@ -74,25 +74,19 @@ const headCells = [
     {
         id: 'name',
         numeric: false,
-        label: 'Material Name',
-        align: 'left'
-    },
-    {
-        id: 'company',
-        numeric: true,
-        label: 'Supplier',
+        label: '材料名稱',
         align: 'left'
     },
     {
         id: 'type',
         numeric: true,
-        label: 'Comment',
+        label: '備註',
         align: 'left'
     },
     {
         id: 'status',
         numeric: false,
-        label: 'Status',
+        label: '狀態',
         align: 'center'
     }
 ];
@@ -179,7 +173,7 @@ const OrderList = () => {
             const newRows = rows.filter((row) => {
                 let matches = true;
 
-                const properties = ['materialname', 'supplier', 'type', 'status', 'id'];
+                const properties = ['name', 'type', 'status', 'id'];
                 let containsQuery = false;
 
                 properties.forEach((property) => {
@@ -322,7 +316,7 @@ const OrderList = () => {
                                             component="th"
                                             id={labelId}
                                             scope="row"
-                                            onClick={(event) => handleClick(event, row.materialname)}
+                                            onClick={(event) => handleClick(event, row.name)}
                                             sx={{ cursor: 'pointer' }}
                                         >
                                             <Typography
@@ -337,7 +331,7 @@ const OrderList = () => {
                                             component="th"
                                             id={labelId}
                                             scope="row"
-                                            onClick={(event) => handleClick(event, row.materialname)}
+                                            onClick={(event) => handleClick(event, row.name)}
                                             sx={{ cursor: 'pointer' }}
                                         >
                                             <Typography
@@ -345,18 +339,17 @@ const OrderList = () => {
                                                 sx={{ color: theme.palette.mode === 'dark' ? 'grey.600' : 'grey.900' }}
                                             >
                                                 {' '}
-                                                {row.materialname}{' '}
+                                                {row.name}{' '}
                                             </Typography>
                                         </TableCell>
-                                        <TableCell>{row.supplier}</TableCell>
-                                        <TableCell>{row.type}</TableCell>
+                                        <TableCell>{row.comment}</TableCell>
                                         <TableCell align="center">
                                             {row.status == 1 && <Chip label="Complete" size="small" chipcolor="success" />}
                                             {row.status == 2 && <Chip label="Pending" size="small" chipcolor="orange" />}
                                             {row.status == 3 && <Chip label="Processing" size="small" chipcolor="primary" />}
                                         </TableCell>
                                         <TableCell align="center" sx={{ pr: 3 }}>
-                                            <SlideDdialog />
+                                            <SlideDdialog row={row}/>
                                         </TableCell>
                                     </TableRow>
                                 );

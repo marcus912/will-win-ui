@@ -20,9 +20,10 @@ import {
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import InputLabel from 'ui-component/extended/Form/InputLabel';
 import FormControlSelect from 'ui-component/extended/Form/FormControlSelect';
+import axios from 'axios';
 // ===============================|| UI DIALOG - FORMS ||=============================== //
 
-export default function FormDialog() {
+export default function FormDialog({row}) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
@@ -47,6 +48,11 @@ export default function FormDialog() {
             label: 'Processing'
         }
     ];
+
+    //console.log(row);
+    const callPut = () => {
+        axios.put(`https://polls.apiblueprint.org/purchase/${row.id}`, row);
+    }
     return (
         <div>
             <IconButton color="secondary" size="large" aria-label="edit" onClick={handleClickOpen}>
@@ -60,33 +66,33 @@ export default function FormDialog() {
                             <Stack spacing={3}>
                                 <DialogContentText>
                                     <Typography variant="body2" component="span">
-                                        Let Google help apps determine location. This means sending anonymous location data to Google, even
-                                        when no apps are running.
+                                        這邊新增備註
                                     </Typography>
                                 </DialogContentText>
                                 <CardContent>
                                     <Grid container spacing={2} alignItems="center">
-                                        <Grid item xs={6}>
-                                            <InputLabel>Material</InputLabel>
-                                            <TextField fullWidth placeholder="Enter Material" />
+                                        <Grid item xs={12}>
+                                            <InputLabel>ID: {row?.id}</InputLabel>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <InputLabel>Supplier</InputLabel>
-                                            <TextField fullWidth placeholder="Enter Supplier full name" />
+                                            <InputLabel>材料名稱</InputLabel>
+                                            <TextField fullWidth placeholder="Enter Material" defaultValue={row?.name} />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <InputLabel>Comment</InputLabel>
+                                            <InputLabel>備註</InputLabel>
                                             <TextField
                                                 fullWidth
                                                 id="outlined-multiline-flexible"
                                                 label="Comment"
                                                 multiline
                                                 rows={3}
-                                                defaultValue=""
+                                                defaultValue={row?.comment}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <FormControlSelect currencies={currencies} captionLabel="Status" />
+                                            <InputLabel>狀態</InputLabel>
+                                            <FormControlSelect currencies={currencies} selected={row?.status} captionLabel="Status" />  
+
                                         </Grid>
                                     </Grid>
                                 </CardContent>
@@ -94,10 +100,10 @@ export default function FormDialog() {
                         </DialogContent>
                         <DialogActions sx={{ pr: 2.5 }}>
                             <Button sx={{ color: theme.palette.error.dark }} onClick={handleClose} color="secondary">
-                                Cancel
+                                取消
                             </Button>
-                            <Button variant="contained" size="small" onClick={handleClose}>
-                                Subscribe
+                            <Button variant="contained" size="small" onClick={callPut}>
+                                修改
                             </Button>
                         </DialogActions>
                     </>
