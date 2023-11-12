@@ -74,7 +74,7 @@ const headCells = [
     {
         id: 'name',
         numeric: false,
-        label: '材料名稱',
+        label: 'Heroku',
         align: 'left'
     },
     {
