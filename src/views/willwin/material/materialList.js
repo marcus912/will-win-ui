@@ -74,7 +74,7 @@ const headCells = [
     {
         id: 'name',
         numeric: false,
-        label: 'Heroku',
+        label: '品名',
         align: 'left'
     },
     {
@@ -303,6 +303,7 @@ const OrderList = () => {
                                 const isItemSelected = isSelected(row.materialname);
                                 const labelId = `enhanced-table-checkbox-${index}`;
 
+                                const newLocal = <SlideDdialog row={row} />;
                                 return (
                                     <TableRow
                                         hover
@@ -349,7 +350,7 @@ const OrderList = () => {
                                             {row.status == 3 && <Chip label="Processing" size="small" chipcolor="primary" />}
                                         </TableCell>
                                         <TableCell align="center" sx={{ pr: 3 }}>
-                                            <SlideDdialog row={row}/>
+                                            {newLocal}
                                         </TableCell>
                                     </TableRow>
                                 );
