@@ -104,7 +104,7 @@ export function getProductReviews() {
 export function getMaterial() {
     return async () => {
         try {
-            const response = await axios.get('https://private-1baef-willwin.apiary-mock.com/purchase');
+            const response = await axios.get('https://private-1baef-willwin.apiary-mock.com/material');
             dispatch(slice.actions.getMaterialSuccess(response.data.materiallist));
         } catch (error) {
             dispatch(slice.actions.hasError(error));
