@@ -3,8 +3,8 @@ import React from 'react';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Formik } from 'formik';
+import { dispatch } from 'store';
 import {
-    Box,
     Button,
     Dialog,
     DialogActions,
@@ -19,55 +19,39 @@ import {
     Select,
     MenuItem,
     Typography,
-    IconButton
+    //IconButton
 } from '@mui/material';
 
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+//import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import AnimateButton from 'ui-component/extended/AnimateButton';
 
 import axios from 'axios';
+import { setLoaded } from 'store/slices/material';
+
 // ===============================|| UI DIALOG - FORMS ||=============================== //
 
 export default function FormDialog({ row, ...others }) {
+    console.log('dialge is created');
+    console.log(others);
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-    const [status, setStatus] = React.useState(10);
+    const {open, onClose} = others;
 
-    const statusChange = (event) => {
-        console.log(event.target.value);
-        setStatus(event.target.value);
-        console.log(typeof age);
-    };
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+    // const handleClickOpen = () => {
+    //     // setOpen(true);
+    // };
 
     const handleClose = () => {
-        setOpen(false);
+        onClose();
     };
 
-    // const currencies = [
-    //     {
-    //         value: '1',
-    //         label: 'Complete'
-    //     },
-    //     {
-    //         value: '2',
-    //         label: 'Pending'
-    //     },
-    //     {
-    //         value: '3',
-    //         label: 'Processing'
-    //     }
-    // ];
-
     //console.log(row);
-    const callPut = () => {
+    const callPut = (data) => {
         try {
-            axios.put(`https://private-1baef-willwin.apiary-mock.com/material/${row.id}`, row);
+            axios.put(`https://private-1baef-willwin.apiary-mock.com/material/${row.id}`, data);
             // success, close dialog.
-            // here
+            handleClose();
+            // update isLoaded
+            dispatch(setLoaded(false))
         } catch (e) {
             // failed
             console.log(e);
@@ -75,9 +59,6 @@ export default function FormDialog({ row, ...others }) {
     };
     return (
         <div>
-            <IconButton color="secondary" size="large" aria-label="edit" onClick={handleClickOpen}>
-                <EditTwoToneIcon sx={{ fontSize: '1.3rem' }} />
-            </IconButton>
             <Dialog fullWidth open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 {open && (
                     <>
@@ -91,22 +72,23 @@ export default function FormDialog({ row, ...others }) {
                                 </DialogContentText>
                                 <Formik
                                     initialValues={{
-                                        material: '123',
-                                        status: status,
-                                        comment: '備註欄',
+                                        material: row.name,
+                                        status: row.status,
+                                        comment: row.comment,
                                         submit: null
                                     }}
-                                    // validationSchema={Yup.object().shape({
-                                    //     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                                    //     password: Yup.string().max(255).required('Password is required')
-                                    // })}
                                     onSubmit={async (values) => {
                                         console.log(values);
+                                        callPut(values);
+                                        
                                     }}
                                 >
                                     {({ handleBlur, handleChange, handleSubmit, isSubmitting, values }) => (
                                         <form noValidate onSubmit={handleSubmit} {...others}>
-                                            <Grid container alignItems="center" justifyContent="space-between">
+                                            <Grid>
+                                            <InputLabel>編號：{row.id}</InputLabel>  
+                                            </Grid>
+                                            <Grid sx={{ mt: 2 }} container alignItems="center" justifyContent="space-between">
                                                 <Grid item xs={5}>
                                                     <FormControl fullWidth>
                                                         <InputLabel htmlFor="material">品名</InputLabel>
@@ -117,7 +99,6 @@ export default function FormDialog({ row, ...others }) {
                                                             name="material"
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
-                                                            inputProps={{}}
                                                         />
                                                     </FormControl>
                                                 </Grid>
@@ -128,17 +109,17 @@ export default function FormDialog({ row, ...others }) {
                                                             labelId="status"
                                                             id="status"
                                                             value={values.status}
+                                                            name="status"
                                                             label="狀態"
-                                                            onChange={statusChange}
+                                                            onChange={handleChange}
                                                         >
-                                                            <MenuItem value={10}>Ten</MenuItem>
-                                                            <MenuItem value={20}>Twenty</MenuItem>
-                                                            <MenuItem value={30}>Thirty</MenuItem>
+                                                            <MenuItem value={1}>Complete</MenuItem>
+                                                            <MenuItem value={2}>Pending</MenuItem>
+                                                            <MenuItem value={3}>Processing</MenuItem>
                                                         </Select>
                                                     </FormControl>
                                                 </Grid>
                                             </Grid>
-
                                             <FormControl fullWidth sx={{ mt: 2 }}>
                                                 <InputLabel htmlFor="comment">備註</InputLabel>
                                                 <OutlinedInput
@@ -148,34 +129,26 @@ export default function FormDialog({ row, ...others }) {
                                                     name="comment"
                                                     onBlur={handleBlur}
                                                     onChange={handleChange}
-                                                    inputProps={{}}
                                                 />
                                             </FormControl>
-                                            <Box sx={{ mt: 2 }}>
-                                                <AnimateButton>
+                                            <DialogActions sx={{ mt: 2 }}>
+                                                < AnimateButton>
+                                                    <Button sx={{ color: theme.palette.error.dark }} onClick={handleClose} color="secondary">
+                                                        取消
+                                                    </Button>
                                                     <Button
-                                                        color="secondary"
                                                         disabled={isSubmitting}
-                                                        fullWidth
-                                                        size="large"
+                                                        size="small"
                                                         type="submit"
                                                         variant="contained"
                                                     >
-                                                        Sign In
+                                                        修改
                                                     </Button>
-                                                </AnimateButton>
-                                            </Box>
+                                                </ AnimateButton>
+                                            </DialogActions>
                                         </form>
                                     )}
                                 </Formik>
-                                <DialogActions sx={{ pr: 2.5 }}>
-                                    <Button sx={{ color: theme.palette.error.dark }} onClick={handleClose} color="secondary">
-                                        取消
-                                    </Button>
-                                    <Button type="submit" variant="contained" size="small" onClick={callPut}>
-                                        修改
-                                    </Button>
-                                </DialogActions>
                             </Stack>
                         </DialogContent>
                     </>
