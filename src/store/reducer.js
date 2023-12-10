@@ -4,6 +4,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 // project imports
+import materialReducer from './slices/material'
 import snackbarReducer from './slices/snackbar';
 import customerReducer from './slices/customer';
 import contactReducer from './slices/contact';
@@ -19,6 +20,7 @@ import menuReducer from './slices/menu';
 // ==============================|| COMBINE REDUCER ||============================== //
 
 const reducer = combineReducers({
+    material: materialReducer,
     snackbar: snackbarReducer,
     cart: persistReducer(
         {
