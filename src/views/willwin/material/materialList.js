@@ -26,17 +26,17 @@ import { visuallyHidden } from '@mui/utils';
 // project imports
 import Chip from 'ui-component/extended/Chip';
 import MainCard from 'ui-component/cards/MainCard';
+import FormDialog from './materialDialog'
 import { useDispatch, useSelector } from 'store';
-import { getMaterial } from 'store/slices/customer';
-import SlideDdialog from './materialDialog';
+import { getMaterials } from 'store/slices/material';
 
 // assets
-//import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterListTwoTone';
 import PrintIcon from '@mui/icons-material/PrintTwoTone';
 import FileCopyIcon from '@mui/icons-material/FileCopyTwoTone';
 import SearchIcon from '@mui/icons-material/Search';
-//import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+
 
 // table sort
 function descendingComparator(a, b, orderBy) {
@@ -146,9 +146,9 @@ EnhancedTableHead.propTypes = {
     rowCount: PropTypes.number.isRequired
 };
 
-// ==============================|| ORDER LIST ||============================== //
+// ==============================|| Material LIST ||============================== //
 
-const OrderList = () => {
+const MaterialList = () => {
     const theme = useTheme();
     const dispatch = useDispatch();
     const [order, setOrder] = React.useState('asc');
@@ -158,22 +158,33 @@ const OrderList = () => {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [search, setSearch] = React.useState('');
     const [rows, setRows] = React.useState([]);
-    const { materiallist } = useSelector((state) => state.customer);
-    React.useEffect(() => {
-        dispatch(getMaterial());
-    }, [dispatch]);
+    const [filter, setFilter] = React.useState([])
+    const [open, setOpen] = React.useState(false);
+    const [dialogRow, setDialogRow] = React.useState([])
+    const { materiallist, isLoaded } = useSelector((state) => state.material);
+    
+    //console.log(isLoaded);
     React.useEffect(() => {
         setRows(materiallist);
     }, [materiallist]);
+    React.useEffect(() => {
+        setFilter(materiallist);
+    }, [materiallist]);
+    React.useEffect(() => {
+        if (isLoaded == false) {
+            dispatch(getMaterials());
+            
+        }
+    }, [isLoaded]);
     const handleSearch = (event) => {
         const newString = event?.target.value;
         setSearch(newString || '');
 
         if (newString) {
-            const newRows = rows.filter((row) => {
+            const newRows = filter.filter((row) => {
                 let matches = true;
 
-                const properties = ['name', 'type', 'status', 'id'];
+                const properties = [ 'id','name', 'comment', 'status'];
                 let containsQuery = false;
 
                 properties.forEach((property) => {
@@ -185,6 +196,7 @@ const OrderList = () => {
                 if (!containsQuery) {
                     matches = false;
                 }
+
                 return matches;
             });
             setRows(newRows);
@@ -241,8 +253,19 @@ const OrderList = () => {
     const isSelected = (name) => selected.indexOf(name) !== -1;
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+    const handleClickOpen = (row) => {
+        setOpen(true);
+        setDialogRow(row);
+        //console.log(row)
+      };
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    
     return (
-        <MainCard title="Order List" content={false}>
+        <MainCard  content={false}>
             <CardContent>
                 <Grid container justifyContent="space-between" alignItems="center" spacing={2}>
                     <Grid item xs={12} sm={6}>
@@ -303,7 +326,7 @@ const OrderList = () => {
                                 const isItemSelected = isSelected(row.materialname);
                                 const labelId = `enhanced-table-checkbox-${index}`;
 
-                                const newLocal = <SlideDdialog row={row} />;
+                                //const newLocal = <SlideDialog row={row} />;
                                 return (
                                     <TableRow
                                         hover
@@ -350,8 +373,11 @@ const OrderList = () => {
                                             {row.status == 3 && <Chip label="Processing" size="small" chipcolor="primary" />}
                                         </TableCell>
                                         <TableCell align="center" sx={{ pr: 3 }}>
-                                            {newLocal}
-                                        </TableCell>
+                                            <IconButton color="secondary" size="large" aria-label="edit" onClick={() => handleClickOpen(row)}>
+                                                <EditTwoToneIcon sx={{ fontSize: '1.3rem' }} />
+                                            </IconButton> 
+                                            {/* {newLocal} */}
+                                        </TableCell>    
                                     </TableRow>
                                 );
                             })}
@@ -367,7 +393,6 @@ const OrderList = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-
             {/* table pagination */}
             <TablePagination
                 rowsPerPageOptions={[5, 10, 25]}
@@ -378,8 +403,9 @@ const OrderList = () => {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
+             <FormDialog row={dialogRow} open={open} onClose={handleClose}></FormDialog>
         </MainCard>
     );
 };
 
-export default OrderList;
+export default MaterialList;
