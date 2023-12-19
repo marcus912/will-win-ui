@@ -10,7 +10,8 @@ import { dispatch } from '../index';
 
 const initialState = {
     materiallist:[],
-    isLoaded: false
+    isLoaded: false,
+    dialogRow:{}
 };
 
 const slice = createSlice({
@@ -24,6 +25,10 @@ const slice = createSlice({
 
         setIsLoaded(state, action){
             state.isLoaded = action.payload;
+        },
+
+        setDialog(state, action){
+            state.dialogRow = action.payload;
         },
 
         // HAS ERROR Example
@@ -53,6 +58,12 @@ export function setLoaded(isLoaded) {
     return () =>{
         dispatch(slice.actions.setIsLoaded(isLoaded))
     };
+}
+
+export function setDialogRow(row){
+    return ()=>{
+        dispatch(slice.actions.setDialog(row))
+    }
 }
 
 
