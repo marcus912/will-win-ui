@@ -28,7 +28,7 @@ const willwin = {
             id: 'will-material',
             title: <FormattedMessage id="Material-List" />,
             type: 'item',
-            url: '/material/materiallist',
+            url: '/material',
             icon: icons.IconStairsUp
         }
     ]
