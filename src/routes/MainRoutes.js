@@ -10,7 +10,8 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 const DashboardAnalytics = Loadable(lazy(() => import('views/dashboard/Analytics')));
 
 // willwin routing
-const WillMaterialList = Loadable(lazy(() => import('views/willwin/material/materialList')));
+const WillMaterial = Loadable(lazy(() => import('views/willwin/material/MaterialPage')));
+const WillTest = Loadable(lazy(() => import('views/willwin/material/formik')));
 
 // widget routing
 const WidgetStatistics = Loadable(lazy(() => import('views/widget/Statistics')));
@@ -144,8 +145,12 @@ const MainRoutes = {
     ),
     children: [
         {
-            path: '/material/materiallist',
-            element: <WillMaterialList />
+            path: '/material',
+            element: <WillMaterial />
+        },
+        {
+            path: '/material/formik',
+            element: <WillTest />
         },
         {
             path: '/widget/statistics',
