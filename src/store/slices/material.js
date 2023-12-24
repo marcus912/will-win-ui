@@ -9,31 +9,33 @@ import { dispatch } from '../index';
 // ----------------------------------------------------------------------
 
 const initialState = {
+    material:{
     materiallist:[],
     isLoaded: false,
     dialogRow:{}
+    }
 };
 
-const slice = createSlice({
-    name: 'material',
+const slice = createSlice({ 
+    name: 'basicSetup',
     initialState,
     reducers: {
         getMaterialSucess(state, action){
-            state.materiallist = action.payload;
-            state.isLoaded =true;
+            state.material.materiallist = action.payload;
+            state.material.isLoaded =true;
         },
 
         setIsLoaded(state, action){
-            state.isLoaded = action.payload;
+            state.material.isLoaded = action.payload;
         },
 
         setDialog(state, action){
-            state.dialogRow = action.payload;
+            state.material.dialogRow = action.payload;
         },
 
         // HAS ERROR Example
         hasError(state, action) {
-            state.error = action.payload;
+            state.material.error = action.payload;
         },
     }
 });
