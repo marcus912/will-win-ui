@@ -1,5 +1,5 @@
 import dashboard from './dashboard';
-import willwin from './willwin';
+import basicSettings from './basic-settings';
 import application from './application';
 import forms from './forms';
 import elements from './elements';
@@ -13,7 +13,7 @@ import other from './other';
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-    items: [dashboard, willwin, application, forms, elements, samplePage, pages, utilities, support, other]
+    items: [dashboard, basicSettings, application, forms, elements, samplePage, pages, utilities, support, other]
 };
 
 export default menuItems;
