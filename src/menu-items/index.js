@@ -1,5 +1,5 @@
 import dashboard from './dashboard';
-import basicSettings from './basic-settings';
+import basicSettings from './settings';
 import application from './application';
 import forms from './forms';
 import elements from './elements';
