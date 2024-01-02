@@ -28,7 +28,7 @@ import { visuallyHidden } from '@mui/utils';
 import Chip from 'ui-component/extended/Chip';
 import MainCard from 'ui-component/cards/MainCard';
 import { useDispatch, useSelector } from 'store';
-import { getCustomers } from 'store/slices/customer';
+import { getItems } from 'store/slices/basic-settings';
 
 // assets
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -129,11 +129,6 @@ function EnhancedTableHead({ order, orderBy, numSelected, onRequestSort}) {
                             </TableSortLabel>
                         </TableCell>
                     ))}
-                {numSelected <= 0 && (
-                    <TableCell sortDirection={false} align="center" sx={{ pr: 3 }}>
-                        Action
-                    </TableCell>
-                )}
             </TableRow>
         </TableHead>
     );
@@ -186,7 +181,7 @@ EnhancedTableToolbar.propTypes = {
     numSelected: PropTypes.number.isRequired
 };
 
-// ==============================|| CUSTOMER LIST ||============================== //
+// ==============================|| ITEM LIST ||============================== //
 
 const CustomerList = () => {
     const theme = useTheme();
@@ -199,22 +194,27 @@ const CustomerList = () => {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [search, setSearch] = React.useState('');
     const [rows, setRows] = React.useState([]);
-    const { customers } = useSelector((state) => state.customer);
+    const [filter, setFilter] = React.useState([]);
+    const { itemList, isLoaded  } = useSelector((state) => state.basicSetup.item);
+
     React.useEffect(() => {
-        dispatch(getCustomers());
-    }, [dispatch]);
+        if(isLoaded == false){
+            dispatch(getItems()); 
+        }
+    }, [isLoaded]); 
     React.useEffect(() => {
-        setRows(customers);
-    }, [customers]);
+        setRows(itemList);
+        setFilter(itemList)
+    }, [itemList]);
     const handleSearch = (event) => {
         const newString = event?.target.value;
         setSearch(newString || '');
 
         if (newString) {
-            const newRows = rows.filter((row) => {
+            const newRows = filter.filter((row) => {
                 let matches = true;
 
-                const properties = ['name', 'email', 'location', 'orders'];
+                const properties = ['id', 'name', 'comment'];
                 let containsQuery = false;
 
                 properties.forEach((property) => {
@@ -230,7 +230,7 @@ const CustomerList = () => {
             });
             setRows(newRows);
         } else {
-            setRows(customers);
+            setRows(itemList);
         }
     };
 
@@ -286,7 +286,7 @@ const CustomerList = () => {
     
 
     return (
-        <MainCard title="Customer List" content={false}>
+        <MainCard content={false}>
             {/*  HEADER TOOLBAR */}
             <CardContent>
                 <Grid container justifyContent="space-between" alignItems="center" spacing={2}>
@@ -300,7 +300,7 @@ const CustomerList = () => {
                                 )
                             }}
                             onChange={handleSearch}
-                            placeholder="Search Customer"
+                            placeholder="Search Item"
                             value={search}
                             size="small"
                         />
@@ -368,19 +368,17 @@ const CustomerList = () => {
                                                 sx={{ color: theme.palette.mode === 'dark' ? 'grey.600' : 'grey.900' }}
                                             >
                                                 {' '}
-                                                {row.name}{' '}
+                                                {row.id}{' '}
                                             </Typography>
-                                            <Typography variant="caption"> {row.email} </Typography>
                                         </TableCell>
-                                        <TableCell>{row.location}</TableCell>
-                                        <TableCell align="right">{row.orders}</TableCell>
-                                        <TableCell align="center">{row.date}</TableCell>
-                                        <TableCell align="center">
-                                            {row.status === 1 && <Chip label="Complete" size="small" chipcolor="success" />}
-                                            {row.status === 2 && <Chip label="Processing" size="small" chipcolor="orange" />}
-                                            {row.status === 3 && <Chip label="Confirm" size="small" chipcolor="primary" />}
+                                        <TableCell>{row.name}</TableCell>
+                                        <TableCell>{row.comment}</TableCell>
+                                        <TableCell>
+                                            {row.status == 1 && <Chip label="Complete" size="small" chipcolor="success" />}
+                                            {row.status == 2 && <Chip label="Processing" size="small" chipcolor="orange" />}
+                                            {row.status == 3 && <Chip label="Confirm" size="small" chipcolor="primary" />}
                                         </TableCell>
-                                        <TableCell align="center" sx={{ pr: 3 }}>
+                                        <TableCell sx={{ pr: 3 }}>
                                             <IconButton color="secondary" size="large" aria-label="edit">
                                                 <EditTwoToneIcon sx={{ fontSize: '1.3rem' }} />
                                             </IconButton>
