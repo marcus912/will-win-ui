@@ -10,9 +10,13 @@ import { dispatch } from '../index';
 
 const initialState = {
     material:{
-    materialList:[],
-    isLoaded: false,
-    dialogRow:{}
+        materialList:[],
+        isLoaded: false,
+        dialogRow:{}
+    },
+    item:{
+        itemList:[],
+        isLoaded: false,
     }
 };
 
@@ -33,6 +37,10 @@ const slice = createSlice({
             state.material.dialogRow = action.payload;
         },
 
+        getItemSuccess(state, action){
+            state.item.itemList = action.payload;
+            state.item.isLoaded =true;
+        },
         // HAS ERROR Example
         hasError(state, action) {
             state.material.error = action.payload;
@@ -49,6 +57,7 @@ export function getMaterials() {
     return async () => {
         try {
             const response = await axios.get('https://private-1baef-willwin.apiary-mock.com/material');
+            console.log(response)
             dispatch(slice.actions.getMaterialSuccess(response.data.materiallist));
         } catch (error) {
             dispatch(slice.actions.hasError(error));
@@ -68,4 +77,14 @@ export function setDialogRow(row){
     }
 }
 
-
+export function getItems() {
+    return async () => {
+        try {
+            const response = await axios.get('https://private-1baef-willwin.apiary-mock.com/material');
+            //console.log(response)
+            dispatch(slice.actions.getItemSuccess(response.data.itemList));
+        } catch (error) {
+            dispatch(slice.actions.hasError(error));
+        }
+    };
+}
