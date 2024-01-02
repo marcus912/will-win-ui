@@ -4,13 +4,12 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import {  IconBrandVercel } from '@tabler/icons';
+import {  IconBrandVercel, Icon123 } from '@tabler/icons';
 
 // constant
 const icons = {
-    // IconClipboardCheck,
-    // IconPictureInPicture,
-    IconBrandVercel
+    IconBrandVercel,
+    Icon123
 };
 
 // ==============================|| UI WillWin MENU ITEMS ||============================== //
@@ -27,6 +26,13 @@ const settings = {
             type: 'item',
             url: 'basic-settings/material',
             icon: icons.IconBrandVercel
+        },
+        {
+            id: 'item',
+            title: <FormattedMessage id="item" />,
+            type: 'item',
+            url: 'basic-settings/item',
+            icon: icons.Icon123
         }
     ]
 };
