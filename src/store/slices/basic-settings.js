@@ -17,6 +17,7 @@ const initialState = {
     item:{
         itemList:[],
         isLoaded: false,
+        itemDialogRow:{}
     }
 };
 
@@ -41,6 +42,11 @@ const slice = createSlice({
             state.item.itemList = action.payload;
             state.item.isLoaded =true;
         },
+
+        setItemDialog(state, action){
+            state.item.itemDialogRow = action.payload;
+        },
+
         // HAS ERROR Example
         hasError(state, action) {
             state.material.error = action.payload;
@@ -87,4 +93,10 @@ export function getItems() {
             dispatch(slice.actions.hasError(error));
         }
     };
+}
+
+export function setItemDialogRow(row){
+    return ()=>{
+        dispatch(slice.actions.setItemDialog(row))
+    }
 }
