@@ -6,7 +6,7 @@ import { IconButton, Table, TableBody, TableCell, TableContainer, TablePaginatio
 
 // project imports
 import Chip from 'ui-component/extended/Chip';
-import EnhancedTableHead from './EnhancedTableHead';
+import EnhancedTableHead from '../../../ui-component/third-party/EnhancedTableHead';
 import { useDispatch, useSelector } from 'store';
 import { getItems, setItemDialogRow } from 'store/slices/basic-settings';
 
