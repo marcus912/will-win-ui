@@ -6,7 +6,7 @@ import { IconButton, Table, TableBody, TableCell, TableContainer, TablePaginatio
 
 // project imports
 import Chip from 'ui-component/extended/Chip';
-import EnhancedTableHead from './EnhancedTableHead';
+import EnhancedTableHead from '../../../ui-component/third-party/EnhancedTableHead';
 import { useDispatch, useSelector } from 'store';
 import { getMaterials, setDialogRow } from 'store/slices/basic-settings';
 
@@ -114,7 +114,7 @@ const MaterialList = ({ ...others }) => {
     return (
         <TableContainer>
             <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-                <EnhancedTableHead
+            <EnhancedTableHead
                     numSelected={selected.length}
                     order={order}
                     orderBy={orderBy}
