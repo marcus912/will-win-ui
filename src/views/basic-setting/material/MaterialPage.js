@@ -46,7 +46,7 @@ const MaterialPage = () => {
             const newRows = filter.filter((row) => {
                 let matches = true;
 
-                const properties = [ 'id','name', 'comment', 'status'];
+                const properties = [ 'id','name', 'comment'];
                 let containsQuery = false;
 
                 properties.forEach((property) => {
