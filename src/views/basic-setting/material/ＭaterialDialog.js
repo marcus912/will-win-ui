@@ -24,7 +24,7 @@ import {
 import AnimateButton from 'ui-component/extended/AnimateButton';
 
 import axios from 'axios';
-import { setLoaded } from 'store/slices/basic-settings';
+import {  setMaterialIsLoaded } from 'store/slices/basic-settings';
 import { useSelector } from 'store';
 
 // ===============================|| UI DIALOG - FORMS ||=============================== //
@@ -34,7 +34,7 @@ const FormDialog = ({ ...others }) => {
     const theme = useTheme();
     const {open, onClose} = others;
     // get row using useSelector
-    const { dialogRow: row } = useSelector((state) => state.basicSetup.material);
+    const { materialDialogRow: row } = useSelector((state) => state.basicSetup.material);
     
     console.log("3.MaterialDialogOpen")
 
@@ -50,7 +50,7 @@ const FormDialog = ({ ...others }) => {
             // success, close dialog.
             handleClose();
             // update isLoaded
-            dispatch(setLoaded(false));
+            dispatch( setMaterialIsLoaded(false));
         } catch (e) {
             // failed
             console.log(e);
