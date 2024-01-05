@@ -12,7 +12,7 @@ const initialState = {
     material:{
         materialList:[],
         isLoaded: false,
-        dialogRow:{}
+        materialDialogRow:{}
     },
     item:{
         itemList:[],
@@ -25,22 +25,29 @@ const slice = createSlice({
     name: 'basicSetup',
     initialState,
     reducers: {
+
+        //Material Reducers
         getMaterialSuccess(state, action){
             state.material.materialList = action.payload;
             state.material.isLoaded =true;
         },
 
-        setIsLoaded(state, action){
+        setMaterialIsLoaded(state, action){
             state.material.isLoaded = action.payload;
         },
 
         setDialog(state, action){
-            state.material.dialogRow = action.payload;
+            state.material.materialDialogRow = action.payload;
         },
 
+        //Item Reducers
         getItemSuccess(state, action){
             state.item.itemList = action.payload;
             state.item.isLoaded =true;
+        },
+
+        setItemIsLoaded(state, action){
+            state.item.isLoaded = action.payload;
         },
 
         setItemDialog(state, action){
@@ -59,6 +66,7 @@ export default slice.reducer;
 
 // ----------------------------------------------------------------------
 
+//Material Function
 export function getMaterials() {
     return async () => {
         try {
@@ -71,9 +79,9 @@ export function getMaterials() {
     };
 }
 
-export function setLoaded(isLoaded) {
+export function  setMaterialIsLoaded(isLoaded) {
     return () =>{
-        dispatch(slice.actions.setIsLoaded(isLoaded))
+        dispatch(slice.actions.setItemIsLoaded(isLoaded))
     };
 }
 
@@ -83,15 +91,22 @@ export function setDialogRow(row){
     }
 }
 
+
+//Item Function
 export function getItems() {
     return async () => {
         try {
-            const response = await axios.get('https://private-1baef-willwin.apiary-mock.com/material');
-            //console.log(response)
+            const response = await axios.get('https://private-1baef-willwin.apiary-mock.com/item');
             dispatch(slice.actions.getItemSuccess(response.data.itemList));
         } catch (error) {
             dispatch(slice.actions.hasError(error));
         }
+    };
+}
+
+export function  setItemIsLoaded(isLoaded) {
+    return () =>{
+        dispatch(slice.actions.setItemIsLoaded(isLoaded))
     };
 }
 
