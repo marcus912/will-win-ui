@@ -24,7 +24,7 @@ import {
 import AnimateButton from 'ui-component/extended/AnimateButton';
 
 import axios from 'axios';
-import { setLoaded } from 'store/slices/basic-settings';
+import { setItemIsLoaded } from 'store/slices/basic-settings';
 import { useSelector } from 'store';
 
 // ===============================|| UI DIALOG - FORMS ||=============================== //
@@ -42,7 +42,7 @@ const FormDialog = ({ ...others }) => {
         try {
             axios.put(`https://private-1baef-willwin.apiary-mock.com/item/${row.id}`, data);
             handleClose();
-            dispatch(setLoaded(false));
+            dispatch(setItemIsLoaded(false));
         } catch (e) {
             console.log(e);
         }
