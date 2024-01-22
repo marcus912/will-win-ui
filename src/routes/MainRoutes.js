@@ -12,6 +12,7 @@ const DashboardAnalytics = Loadable(lazy(() => import('views/dashboard/Analytics
 // willWin routing
 const Material = Loadable(lazy(() => import('views/basic-setting/material/MaterialPage')));
 const Item = Loadable(lazy(() => import('views/basic-setting/item/ItemPage')));
+const Unit = Loadable(lazy(() => import('views/basic-setting/unit/UnitPage')));
 
 // widget routing
 const WidgetStatistics = Loadable(lazy(() => import('views/widget/Statistics')));
@@ -151,6 +152,10 @@ const MainRoutes = {
         {
             path: '/basic-settings/item',
             element: <Item />
+        },
+        {
+            path: '/basic-settings/unit',
+            element: <Unit />
         },
         {
             path: '/widget/statistics',
