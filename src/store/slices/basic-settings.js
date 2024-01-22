@@ -81,7 +81,7 @@ export function getMaterials() {
 
 export function  setMaterialIsLoaded(isLoaded) {
     return () =>{
-        dispatch(slice.actions.setItemIsLoaded(isLoaded))
+        dispatch(slice.actions.setMaterialIsLoaded(isLoaded))
     };
 }
 
