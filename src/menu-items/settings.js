@@ -1,20 +1,19 @@
-// Reference by menu-items/forms.js
-
 // third-party
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import {  IconBrandVercel, Icon123 } from '@tabler/icons';
+import {  IconBrandVercel, Icon123, IconCircleLetterU } from '@tabler/icons';
 
 // constant
 const icons = {
     IconBrandVercel,
-    Icon123
+    Icon123,
+    IconCircleLetterU
 };
 
 // ==============================|| UI WillWin MENU ITEMS ||============================== //
 
-const settings = {
+const basicSettings = {
     id: 'settings',
     title: <FormattedMessage id="basicSettings" />,
     icon: icons.IconPictureInPicture,
@@ -33,7 +32,14 @@ const settings = {
             type: 'item',
             url: 'basic-settings/item',
             icon: icons.Icon123
-        }
+        },
+        {
+            id: 'unit',
+            title: <FormattedMessage id="unit" />,
+            type: 'item',
+            url: 'basic-settings/unit',
+            icon: icons.IconCircleLetterU
+        },
     ]
 };
-export default settings;
+export default basicSettings;
