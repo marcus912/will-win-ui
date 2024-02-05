@@ -70,7 +70,7 @@ export default slice.reducer;
 export function getMaterials() {
     return async () => {
         try {
-            const response = await axios.get('https://private-1baef-willwin.apiary-mock.com/material');
+            const response = await axios.get(`${process.env.REACT_APP_WILL_WIN_API}/material`);
             console.log(response)
             dispatch(slice.actions.getMaterialSuccess(response.data.materiallist));
         } catch (error) {
@@ -96,7 +96,7 @@ export function setDialogRow(row){
 export function getItems() {
     return async () => {
         try {
-            const response = await axios.get('https://private-1baef-willwin.apiary-mock.com/item');
+            const response = await axios.get(process.env.REACT_APP_ITEM);
             dispatch(slice.actions.getItemSuccess(response.data.itemList));
         } catch (error) {
             dispatch(slice.actions.hasError(error));

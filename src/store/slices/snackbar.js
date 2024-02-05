@@ -6,9 +6,9 @@ const initialState = {
     message: 'Note archived',
     anchorOrigin: {
         vertical: 'bottom',
-        horizontal: 'right'
+        horizontal: 'center'
     },
-    variant: 'default',
+    variant: 'alert',
     alert: {
         color: 'primary',
         variant: 'filled'
@@ -28,10 +28,10 @@ const snackbar = createSlice({
     initialState,
     reducers: {
         openSnackbar(state, action) {
-            const { open, message, anchorOrigin, variant, alert, transition, close, actionButton } = action.payload;
+            const {  message, anchorOrigin, variant, alert, transition,  actionButton } = action.payload;
 
             state.action = !state.action;
-            state.open = open || initialState.open;
+            state.open = true;
             state.message = message || initialState.message;
             state.anchorOrigin = anchorOrigin || initialState.anchorOrigin;
             state.variant = variant || initialState.variant;
@@ -40,7 +40,7 @@ const snackbar = createSlice({
                 variant: alert?.variant || initialState.alert.variant
             };
             state.transition = transition || initialState.transition;
-            state.close = close === false ? close : initialState.close;
+            state.close = initialState.close;
             state.actionButton = actionButton || initialState.actionButton;
         },
 

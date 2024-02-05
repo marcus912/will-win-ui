@@ -16,11 +16,8 @@ import {
     OutlinedInput,
     Stack,
     Select,
-    MenuItem,
-    Typography,
+    MenuItem
 } from '@mui/material';
-
-import AnimateButton from 'ui-component/extended/AnimateButton';
 
 import axios from 'axios';
 import { setMaterialIsLoaded } from 'store/slices/basic-settings';
@@ -36,38 +33,23 @@ const FormDialog = ({ ...others }) => {
     // get row using useSelector
     const { materialDialogRow: row } = useSelector((state) => state.basicSetup.material);
     
-    console.log("3.MaterialDialogOpen")
+    //console.log("3.MaterialDialogOpen")
 
     const handleClose = () => {
         onClose();
-        console.log("4.MaterialDialogClose")
+        //console.log("4.MaterialDialogClose")
     };
 
     const callPut = (data) => {
         try {
-            axios.put(`https://private-1baef-willwin.apiary-mock.com/material/${row.id}`, data);
-            console.log("5. MaterialSubmit")
+            axios.put(`${process.env.REACT_APP_WILL_WIN_API}/material/${row.id}`, data);
+            //console.log("5. MaterialSubmit")
             // success, close dialog.
             handleClose();
             // update isLoaded
             dispatch( setMaterialIsLoaded(false));
-        } catch (error) {
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-              } else if (error.request) {
-                // The request was made but no response was received
-                // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                // http.ClientRequest in node.js
-                console.log(error.request);
-              } else {
-                // Something happened in setting up the request that triggered an Error
-                console.log('Error', error.message);
-              }
-              console.log(error.config);
+        } catch (e) {
+            console.log(e);
         }
     };
     return (
@@ -78,9 +60,6 @@ const FormDialog = ({ ...others }) => {
                         <DialogTitle id="form-dialog-title">材料清單修改</DialogTitle>
                         <DialogContent>
                             <Stack spacing={3}>
-                                    <Typography variant="body2" component="span">
-                                        這邊新增備註
-                                    </Typography>
                                 <Formik
                                     initialValues={{
                                         material: row.name,
@@ -149,8 +128,7 @@ const FormDialog = ({ ...others }) => {
                                                     onChange={handleChange}
                                                 />
                                             </FormControl>
-                                            <DialogActions sx={{ mt: 2 }}>
-                                                < AnimateButton>
+                                            <DialogActions sx={{ mt: 2, p:0 }}>
                                                     <Button sx={{ color: theme.palette.error.dark }} onClick={handleClose} color="secondary">
                                                         取消
                                                     </Button>
@@ -162,7 +140,6 @@ const FormDialog = ({ ...others }) => {
                                                     >
                                                         修改
                                                     </Button>
-                                                </ AnimateButton>
                                             </DialogActions>
                                         </form>
                                     )}

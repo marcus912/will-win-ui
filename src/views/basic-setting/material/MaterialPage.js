@@ -40,7 +40,7 @@ const MaterialPage = () => {
         setFilter(materialList);
     }, [materialList]);
 
-    console.log('1.MaterialPage')
+    //console.log('1.MaterialPage')
     //搜尋bar功能
     const handleSearch = (event) => {
         const newString = event?.target.value;

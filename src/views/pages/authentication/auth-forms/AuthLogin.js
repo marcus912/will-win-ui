@@ -65,13 +65,14 @@ const JWTLogin = ({ loginProp, ...others }) => {
             onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                 try {
                     await login(values.email, values.password);
-
+                    console.log(scriptedRef.current) //true 200
                     if (scriptedRef.current) {
                         setStatus({ success: true });
                         setSubmitting(false);
                     }
                 } catch (err) {
-                    console.error(err);
+                    console.log(err);
+                    console.log(scriptedRef.current) //true 400
                     if (scriptedRef.current) {
                         setStatus({ success: false });
                         setErrors({ submit: err.message });
