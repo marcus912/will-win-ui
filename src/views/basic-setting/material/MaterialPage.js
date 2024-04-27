@@ -3,6 +3,7 @@ import * as React from 'react';
 // material-ui
 import {
     CardContent,
+    Fab,
     Grid,
     IconButton,
     InputAdornment,
@@ -19,8 +20,10 @@ import FilterListIcon from '@mui/icons-material/FilterListTwoTone';
 import PrintIcon from '@mui/icons-material/PrintTwoTone';
 import FileCopyIcon from '@mui/icons-material/FileCopyTwoTone';
 import SearchIcon from '@mui/icons-material/Search';
+import AddIcon from '@mui/icons-material/AddTwoTone';
 import MaterialList from './MaterialList';
 import FormDialog from './ＭaterialDialog';
+import AddDialog from './MaterialAddDialog';
 
 // ==============================|| Material LIST ||============================== //
 
@@ -29,6 +32,7 @@ const MaterialPage = () => {
     const [rows, setRows] = React.useState([]);
     const [filter, setFilter] = React.useState([])
     const [open, setOpen] = React.useState(false);
+    const [addOpen, setAddOpen] =React.useState(false)
     const { materialList } = useSelector((state) => state.basicSetup.material);
     
     React.useEffect(() => {
@@ -36,7 +40,7 @@ const MaterialPage = () => {
         setFilter(materialList);
     }, [materialList]);
 
-    console.log('1.MaterialPage')
+    //console.log('1.MaterialPage')
     //搜尋bar功能
     const handleSearch = (event) => {
         const newString = event?.target.value;
@@ -65,6 +69,10 @@ const MaterialPage = () => {
         } else {
             setRows(materialList);
         }
+    };
+
+    const handleAddOpen = () => {
+        setAddOpen(true)
     };
 
     const handleClose = () => {
@@ -106,11 +114,17 @@ const MaterialPage = () => {
                                 <FilterListIcon />
                             </IconButton>
                         </Tooltip>
+                        <Tooltip title="Add Product">
+                            <Fab color="primary" size="small" sx={{ boxShadow: 'none', ml: 1, width: 32, height: 32, minHeight: 32 }} onClick={handleAddOpen}>
+                                <AddIcon fontSize="small" />
+                            </Fab>
+                        </Tooltip>
                     </Grid>
                 </Grid>
             </CardContent>
             {/* table */}
             <MaterialList rows={rows} setOpen={setOpen}></MaterialList>
+            <AddDialog addOpen={addOpen} setAddOpen={setAddOpen}></AddDialog>
             <FormDialog open={open} onClose={handleClose}></FormDialog>
         </MainCard>
     );
