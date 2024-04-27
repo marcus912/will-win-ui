@@ -40,7 +40,7 @@ const FormDialog = ({ ...others }) => {
 
     const callPut = (data) => {
         try {
-            axios.put(`https://private-1baef-willwin.apiary-mock.com/item/${row.id}`, data);
+            axios.put(`${process.env.REACT_APP_WILL_WIN_API}/item/${row.id}`, data);
             handleClose();
             dispatch(setItemIsLoaded(false));
         } catch (e) {
