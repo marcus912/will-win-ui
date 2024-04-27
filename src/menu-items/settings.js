@@ -4,12 +4,13 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import {  IconBrandVercel, Icon123 } from '@tabler/icons';
+import {  IconBrandVercel, Icon123, IconUsers } from '@tabler/icons';
 
 // constant
 const icons = {
     IconBrandVercel,
-    Icon123
+    Icon123,
+    IconUsers
 };
 
 // ==============================|| UI WillWin MENU ITEMS ||============================== //
@@ -33,6 +34,13 @@ const settings = {
             type: 'item',
             url: 'basic-settings/item',
             icon: icons.Icon123
+        },
+        {
+            id: 'customer',
+            title: <FormattedMessage id="customer" />,
+            type: 'item',
+            url: 'basic-settings/customer',
+            icon: icons.IconUsers
         }
     ]
 };
