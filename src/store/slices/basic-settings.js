@@ -5,59 +5,75 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from 'utils/axios';
 import { dispatch } from '../index';
 
-
 // ----------------------------------------------------------------------
 
 const initialState = {
-    material:{
-        materialList:[],
+    material: {
+        materialList: [],
         isLoaded: false,
-        materialDialogRow:{}
+        materialDialogRow: {}
     },
-    item:{
-        itemList:[],
+    item: {
+        itemList: [],
         isLoaded: false,
-        itemDialogRow:{}
-    }
+        itemDialogRow: {}
+    },
+    customers: {
+        customerList: [],
+        isLoaded: false,
+        customerDialogRow: {}
+    },
 };
 
-const slice = createSlice({ 
+const slice = createSlice({
     name: 'basicSetup',
     initialState,
     reducers: {
-
         //Material Reducers
-        getMaterialSuccess(state, action){
+        getMaterialSuccess(state, action) {
             state.material.materialList = action.payload;
-            state.material.isLoaded =true;
+            state.material.isLoaded = true;
         },
 
-        setMaterialIsLoaded(state, action){
+        setMaterialIsLoaded(state, action) {
             state.material.isLoaded = action.payload;
         },
 
-        setDialog(state, action){
+        setDialog(state, action) {
             state.material.materialDialogRow = action.payload;
         },
 
         //Item Reducers
-        getItemSuccess(state, action){
+        getItemSuccess(state, action) {
             state.item.itemList = action.payload;
-            state.item.isLoaded =true;
+            state.item.isLoaded = true;
         },
 
-        setItemIsLoaded(state, action){
+        setItemIsLoaded(state, action) {
             state.item.isLoaded = action.payload;
         },
 
-        setItemDialog(state, action){
+        setItemDialog(state, action) {
             state.item.itemDialogRow = action.payload;
+        },
+
+        //Customer Reducers
+        getCustomerSuccess(state, action) {
+            state.customers.customerList = action.payload;
+        },
+
+        setCustomerIsLoaded(state, action) {
+            state.customers.isLoaded = action.payload;
+        },
+
+        setCustomerDialog(state, action){
+            state.customers.customerDialogRow = action.payload;
         },
 
         // HAS ERROR Example
         hasError(state, action) {
             state.material.error = action.payload;
-        },
+        }
     }
 });
 
@@ -70,8 +86,8 @@ export default slice.reducer;
 export function getMaterials() {
     return async () => {
         try {
-            const response = await axios.get('https://private-1baef-willwin.apiary-mock.com/material');
-            console.log(response)
+            const response = await axios.get(`${process.env.REACT_APP_WILL_WIN_API}/material`);
+            console.log(process.env.REACT_APP_WILL_WIN_API)
             dispatch(slice.actions.getMaterialSuccess(response.data.materiallist));
         } catch (error) {
             dispatch(slice.actions.hasError(error));
@@ -79,24 +95,23 @@ export function getMaterials() {
     };
 }
 
-export function  setMaterialIsLoaded(isLoaded) {
-    return () =>{
-        dispatch(slice.actions.setItemIsLoaded(isLoaded))
+export function setMaterialIsLoaded(isLoaded) {
+    return () => {
+        dispatch(slice.actions.setMaterialIsLoaded(isLoaded));
     };
 }
 
-export function setDialogRow(row){
-    return ()=>{
-        dispatch(slice.actions.setDialog(row))
-    }
+export function setDialogRow(row) {
+    return () => {
+        dispatch(slice.actions.setDialog(row));
+    };
 }
-
 
 //Item Function
 export function getItems() {
     return async () => {
         try {
-            const response = await axios.get('https://private-1baef-willwin.apiary-mock.com/item');
+            const response = await axios.get(`${process.env.REACT_APP_WILL_WIN_API}/item`);
             dispatch(slice.actions.getItemSuccess(response.data.itemList));
         } catch (error) {
             dispatch(slice.actions.hasError(error));
@@ -104,14 +119,39 @@ export function getItems() {
     };
 }
 
-export function  setItemIsLoaded(isLoaded) {
-    return () =>{
-        dispatch(slice.actions.setItemIsLoaded(isLoaded))
+export function setItemIsLoaded(isLoaded) {
+    return () => {
+        dispatch(slice.actions.setItemIsLoaded(isLoaded));
     };
 }
 
-export function setItemDialogRow(row){
-    return ()=>{
-        dispatch(slice.actions.setItemDialog(row))
+export function setItemDialogRow(row) {
+    return () => {
+        dispatch(slice.actions.setItemDialog(row));
+    };
+}
+
+//Customer Function
+export function getCustomers() {
+    return async () =>{
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_WILL_WIN_API}/customer`);
+            dispatch(slice.actions.getCustomerSuccess(response.data.customerList));
+            console.log(response.data)
+        } catch (error) {
+            dispatch(slice.actions.hasError(error))
+        }
+    }
+}
+
+export function setCustomerIsLoaded(isLoaded) {
+    return () => {
+        dispatch(slice.actions.setCustomerIsLoaded(isLoaded));
+    };
+}
+
+export function setCustomerRow(row) {
+    return () =>{
+        dispatch(slice.actions.setCustomerDialog(row))
     }
 }
