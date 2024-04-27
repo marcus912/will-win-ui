@@ -9,7 +9,6 @@ import {
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
     FormControl,
     Grid,
@@ -17,15 +16,13 @@ import {
     OutlinedInput,
     Stack,
     Select,
-    MenuItem,
-    Typography,
+    MenuItem
 } from '@mui/material';
-
-import AnimateButton from 'ui-component/extended/AnimateButton';
 
 import axios from 'axios';
 import {  setMaterialIsLoaded } from 'store/slices/basic-settings';
 import { useSelector } from 'store';
+import { openSnackbar } from 'store/slices/snackbar';
 
 // ===============================|| UI DIALOG - FORMS ||=============================== //
 
@@ -36,16 +33,16 @@ const FormDialog = ({ ...others }) => {
     // get row using useSelector
     const { materialDialogRow: row } = useSelector((state) => state.basicSetup.material);
     
-    console.log("3.MaterialDialogOpen")
+    //console.log("3.MaterialDialogOpen")
 
     const handleClose = () => {
         onClose();
-        console.log("4.MaterialDialogClose")
+        //console.log("4.MaterialDialogClose")
     };
 
     const callPut = (data) => {
         try {
-            axios.put(`https://private-1baef-willwin.apiary-mock.com/material/${row.id}`, data);
+            axios.put(`${process.env.REACT_APP_WILL_WIN_API}/material/${row.id}`, data);
             console.log("5. MaterialSubmit")
             // success, close dialog.
             handleClose();
@@ -64,11 +61,6 @@ const FormDialog = ({ ...others }) => {
                         <DialogTitle id="form-dialog-title">材料清單修改</DialogTitle>
                         <DialogContent>
                             <Stack spacing={3}>
-                                <DialogContentText>
-                                    <Typography variant="body2" component="span">
-                                        這邊新增備註
-                                    </Typography>
-                                </DialogContentText>
                                 <Formik
                                     initialValues={{
                                         material: row.name,
@@ -79,6 +71,15 @@ const FormDialog = ({ ...others }) => {
                                     onSubmit={async (values) => {
                                         console.log(values);
                                         callPut(values);
+                                        dispatch(openSnackbar({
+                                            open:true,
+                                            message:"修改成功",
+                                            variant:'alert',
+                                            alert:{
+                                                color:'success'
+                                            },
+                                            close: false
+                                        }))
                                     }}
                                 >
                                     {({ handleBlur, handleChange, handleSubmit, isSubmitting, values }) => (
@@ -130,7 +131,6 @@ const FormDialog = ({ ...others }) => {
                                                 />
                                             </FormControl>
                                             <DialogActions sx={{ mt: 2 }}>
-                                                < AnimateButton>
                                                     <Button sx={{ color: theme.palette.error.dark }} onClick={handleClose} color="secondary">
                                                         取消
                                                     </Button>
@@ -142,7 +142,6 @@ const FormDialog = ({ ...others }) => {
                                                     >
                                                         修改
                                                     </Button>
-                                                </ AnimateButton>
                                             </DialogActions>
                                         </form>
                                     )}
