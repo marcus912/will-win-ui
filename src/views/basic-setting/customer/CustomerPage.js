@@ -6,6 +6,7 @@ import { useTheme } from '@mui/material/styles';
 import {
     Box,
     CardContent,
+    Fab,
     Grid,
     IconButton,
     InputAdornment,
@@ -37,8 +38,10 @@ import FilterListIcon from '@mui/icons-material/FilterListTwoTone';
 import PrintIcon from '@mui/icons-material/PrintTwoTone';
 import FileCopyIcon from '@mui/icons-material/FileCopyTwoTone';
 import SearchIcon from '@mui/icons-material/Search';
+import AddIcon from '@mui/icons-material/AddTwoTone';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import CustomerDialog from './CustomerDialog';
+import AddDialog from './CustomerAddDialog'
 
 // table sort
 function descendingComparator(a, b, orderBy) {
@@ -205,6 +208,7 @@ const CustomerPage = () => {
     const [search, setSearch] = React.useState('');
     const [rows, setRows] = React.useState([]);
     const [open, setOpen] = React.useState(false);
+    const [addOpen, setAddOpen] = React.useState(false)
 
     const { customerList } = useSelector((state) => state.basicSetup.customers);
     const { isLoaded }  = useSelector((state) => state.basicSetup.customers)
@@ -275,6 +279,14 @@ const CustomerPage = () => {
         setOpen(false);
     };
 
+    const handleAddOpen =() => {
+        setAddOpen(true);
+    };
+
+    const handleAddClose =() =>{
+        setAddOpen(false)
+    }
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -324,6 +336,11 @@ const CustomerPage = () => {
                                     <IconButton size="large">
                                         <FilterListIcon />
                                     </IconButton>
+                                </Tooltip>
+                                <Tooltip title="Add Product">
+                                    <Fab color='primary' size="small" sx={{ boxShadow: 'none', ml: 1, width: 32, height: 32, minHeight: 32 }} onClick={handleAddOpen}>
+                                        <AddIcon fontSize='small'/>
+                                    </Fab>
                                 </Tooltip>
                             </Grid>
                         </Grid>
@@ -414,6 +431,7 @@ const CustomerPage = () => {
                         onRowsPerPageChange={handleChangeRowsPerPage}
                     />
                 </Grid>
+                <AddDialog open={addOpen} onClose={handleAddClose}></AddDialog>
                 {open && (
                     <Grid item sx={{ width: 800, margin: { xs: '0 auto', md: 'initial' } }}>
                         <CustomerDialog open={open} onClose={handleClose} />
