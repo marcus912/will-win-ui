@@ -41,7 +41,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/AddTwoTone';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import CustomerDialog from './CustomerDialog';
-import AddDialog from './CustomerAddDialog'
+import AddDialog from './CustomerAddDialog';
 
 // table sort
 function descendingComparator(a, b, orderBy) {
@@ -131,9 +131,9 @@ function EnhancedTableHead({ order, orderBy, numSelected, onRequestSort, selecte
                             >
                                 {headCell.label}
                                 {orderBy === headCell.id ? (
-                                    <Box component="span" sx={visuallyHidden}>
+                                    <B  ox component="span" sx={visuallyHidden}>
                                         {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                                    </Box>
+                                    </B>
                                 ) : null}
                             </TableSortLabel>
                         </TableCell>
@@ -208,15 +208,15 @@ const CustomerPage = () => {
     const [search, setSearch] = React.useState('');
     const [rows, setRows] = React.useState([]);
     const [open, setOpen] = React.useState(false);
-    const [addOpen, setAddOpen] = React.useState(false)
-
+    console.log(open);
+    const [addOpen, setAddOpen] = React.useState(false);
     const { customerList } = useSelector((state) => state.basicSetup.customers);
-    const { isLoaded }  = useSelector((state) => state.basicSetup.customers)
+    const { isLoaded } = useSelector((state) => state.basicSetup.customers);
 
     React.useEffect(() => {
-        if(isLoaded==false){ 
+        if (isLoaded == false) {
             dispatch(getCustomers());
-        }  
+        }
     }, [isLoaded]);
 
     React.useEffect(() => {
@@ -279,13 +279,13 @@ const CustomerPage = () => {
         setOpen(false);
     };
 
-    const handleAddOpen =() => {
+    const handleAddOpen = () => {
         setAddOpen(true);
     };
 
-    const handleAddClose =() =>{
-        setAddOpen(false)
-    }
+    const handleAddClose = () => {
+        setAddOpen(false);
+    };
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -302,134 +302,141 @@ const CustomerPage = () => {
 
     return (
         <MainCard title="Customer List" content={false}>
-            <Grid className="block" item xs zeroMinWidth sx={{ display: open ? { xs: 'none', md: 'flex' } : 'block' }}>
-                <Grid spacing={gridSpacing}>
-                    <CardContent>
-                        <Grid container justifyContent="space-between" alignItems="center">
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    InputProps={{
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <SearchIcon fontSize="small" />
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                    onChange={handleSearch}
-                                    placeholder="Search Customer"
-                                    value={search}
-                                    size="small"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6} sx={{ textAlign: 'right' }}>
-                                <Tooltip title="Copy">
-                                    <IconButton size="large">
-                                        <FileCopyIcon />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title="Print">
-                                    <IconButton size="large">
-                                        <PrintIcon />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title="Filter">
-                                    <IconButton size="large">
-                                        <FilterListIcon />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title="Add Product">
-                                    <Fab color='primary' size="small" sx={{ boxShadow: 'none', ml: 1, width: 32, height: 32, minHeight: 32 }} onClick={handleAddOpen}>
-                                        <AddIcon fontSize='small'/>
-                                    </Fab>
-                                </Tooltip>
-                            </Grid>
-                        </Grid>
-                    </CardContent>
-
-                    {/* table */}
-                    <TableContainer>
-                        <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
-                            <EnhancedTableHead
-                                theme={theme}
-                                numSelected={selected.length}
-                                order={order}
-                                orderBy={orderBy}
-                                onSelectAllClick={handleSelectAllClick}
-                                onRequestSort={handleRequestSort}
-                                rowCount={rows.length}
-                                selected={selected}
-                            />
-                            <TableBody>
-                                {stableSort(rows, getComparator(order, orderBy))
-                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                    .map((row, index) => {
-                                        /** Make sure no display bugs if row isn't an OrderData object */
-                                        if (typeof row === 'number') return null;
-                                        const isItemSelected = isSelected(row.name);
-                                        const labelId = `enhanced-table-checkbox-${index}`;
-
-                                        return (
-                                            <TableRow
-                                                hover
-                                                role="checkbox"
-                                                aria-checked={isItemSelected}
-                                                tabIndex={-1}
-                                                key={index}
-                                                selected={isItemSelected}
-                                            >
-                                                <TableCell align="left">{row.id}</TableCell>
-                                                <TableCell component="th" id={labelId} scope="row" sx={{ cursor: 'pointer' }}>
-                                                    <Typography
-                                                        variant="subtitle1"
-                                                        sx={{ color: theme.palette.mode === 'dark' ? 'grey.600' : 'grey.900' }}
-                                                    >
-                                                        {' '}
-                                                        {row.company}{' '}
-                                                    </Typography>
-                                                </TableCell>
-                                                <TableCell align="left">{row.phone}</TableCell>
-                                                <TableCell align="left">{row.address}</TableCell>
-                                                <TableCell align="center">
-                                                    {row.status == 1 && <Chip label="Complete" size="small" chipcolor="success" />}
-                                                    {row.status == 2 && <Chip label="Processing" size="small" chipcolor="orange" />}
-                                                    {row.status == 3 && <Chip label="Confirm" size="small" chipcolor="primary" />}
-                                                </TableCell>
-                                                <TableCell align="center" sx={{ pr: 3 }}>
-                                                    <IconButton
-                                                        color="primary"
-                                                        size="large"
-                                                        aria-label="view"
-                                                        onClick={() => handleDetail(row)}
-                                                    >
-                                                        <MoreHorizOutlinedIcon sx={{ fontSize: '1.3rem' }} />
-                                                    </IconButton>
-                                                </TableCell>
-                                            </TableRow>
-                                        );
-                                    })}
-                                {emptyRows > 0 && (
-                                    <TableRow
-                                        style={{
-                                            height: 53 * emptyRows
+            <Grid container spacing={gridSpacing}>
+                <Grid className="block" item xs zeroMinWidth sx={{ display: open ? { xs: 'none', md: 'block' } : 'block' }}>
+                    <Grid spacing={gridSpacing}>
+                        <CardContent>
+                            <Grid container justifyContent="space-between" alignItems="center">
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start">
+                                                    <SearchIcon fontSize="small" />
+                                                </InputAdornment>
+                                            )
                                         }}
-                                    >
-                                        <TableCell colSpan={6} />
-                                    </TableRow>
-                                )}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                        onChange={handleSearch}
+                                        placeholder="Search Customer"
+                                        value={search}
+                                        size="small"
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6} sx={{ textAlign: 'right' }}>
+                                    <Tooltip title="Copy">
+                                        <IconButton size="large">
+                                            <FileCopyIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Print">
+                                        <IconButton size="large">
+                                            <PrintIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Filter">
+                                        <IconButton size="large">
+                                            <FilterListIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title="Add Product">
+                                        <Fab
+                                            color="primary"
+                                            size="small"
+                                            sx={{ boxShadow: 'none', ml: 1, width: 32, height: 32, minHeight: 32 }}
+                                            onClick={handleAddOpen}
+                                        >
+                                            <AddIcon fontSize="small" />
+                                        </Fab>     
+                                    </Tooltip>
+                                </Grid>
+                            </Grid>
+                        </CardContent>
 
-                    {/* table pagination */}
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        count={rows.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
+                        {/* table */}
+                        <TableContainer>
+                            <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+                                <EnhancedTableHead
+                                    theme={theme}
+                                    numSelected={selected.length}
+                                    order={order}
+                                    orderBy={orderBy}
+                                    onSelectAllClick={handleSelectAllClick}
+                                    onRequestSort={handleRequestSort}
+                                    rowCount={rows.length}
+                                    selected={selected}
+                                />
+                                <TableBody>
+                                    {stableSort(rows, getComparator(order, orderBy))
+                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        .map((row, index) => {
+                                            /** Make sure no display bugs if row isn't an OrderData object */
+                                            if (typeof row === 'number') return null;
+                                            const isItemSelected = isSelected(row.name);
+                                            const labelId = `enhanced-table-checkbox-${index}`;
+
+                                            return (
+                                                <TableRow
+                                                    hover
+                                                    role="checkbox"
+                                                    aria-checked={isItemSelected}
+                                                    tabIndex={-1}
+                                                    key={index}
+                                                    selected={isItemSelected}
+                                                >
+                                                    <TableCell align="left">{row.id}</TableCell>
+                                                    <TableCell component="th" id={labelId} scope="row" sx={{ cursor: 'pointer' }}>
+                                                        <Typography
+                                                            variant="subtitle1"
+                                                            sx={{ color: theme.palette.mode === 'dark' ? 'grey.600' : 'grey.900' }}
+                                                        >
+                                                            {' '}
+                                                            {row.company}{' '}
+                                                        </Typography>
+                                                    </TableCell>
+                                                    <TableCell align="left">{row.phone}</TableCell>
+                                                    <TableCell align="left">{row.address}</TableCell>
+                                                    <TableCell align="center">
+                                                        {row.status == 1 && <Chip label="Complete" size="small" chipcolor="success" />}
+                                                        {row.status == 2 && <Chip label="Processing" size="small" chipcolor="orange" />}
+                                                        {row.status == 3 && <Chip label="Confirm" size="small" chipcolor="primary" />}
+                                                    </TableCell>
+                                                    <TableCell align="center" sx={{ pr: 3 }}>
+                                                        <IconButton
+                                                            color="primary"
+                                                            size="large"
+                                                            aria-label="view"
+                                                            onClick={() => handleDetail(row)}
+                                                        >
+                                                            <MoreHorizOutlinedIcon sx={{ fontSize: '1.3rem' }} />
+                                                        </IconButton>
+                                                    </TableCell>
+                                                </TableRow>
+                                            );
+                                        })}
+                                    {emptyRows > 0 && (
+                                        <TableRow
+                                            style={{
+                                                height: 53 * emptyRows
+                                            }}
+                                        >
+                                            <TableCell colSpan={6} />
+                                        </TableRow>
+                                    )}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+
+                        {/* table pagination */}
+                        <TablePagination
+                            rowsPerPageOptions={[5, 10, 25]}
+                            component="div"
+                            count={rows.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
+                    </Grid>
                 </Grid>
                 <AddDialog open={addOpen} onClose={handleAddClose}></AddDialog>
                 {open && (
