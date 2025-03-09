@@ -1,89 +1,102 @@
 import React from 'react';
-import { Formik } from 'formik';
-import { dispatch } from 'store';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
+import { dispatch } from 'store';
+import { useSelector } from 'store';
 import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    FormControl,
-    Grid,
-    InputLabel,
-    OutlinedInput,
-    Stack,
-    Select,
-    MenuItem,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  //FormControl,
+  Grid,
+  InputLabel,
+  //OutlinedInput,
+  Stack,
+  //Select,
+  TextField
+  //MenuItem,
 } from '@mui/material';
 
 import AnimateButton from 'ui-component/extended/AnimateButton';
 
-import { useSelector } from 'store';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import axios from 'axios';
 import { setCustomerIsLoaded } from 'store/slices/basic-settings';
 import { openSnackbar } from 'store/slices/snackbar';
 
 // ===============================|| UI DIALOG - FORMS ||=============================== //
 
-const FormDialog = ({ ...others }) => {
-    const theme = useTheme();
-    const { openEdit, closeEdit } = others;
-    const { customerDialogRow : row } = useSelector((state)=> state.basicSetup.customers)
+const CustomerEdit = ({ ...others }) => {
+  const theme = useTheme();
+  const { open, close } = others;
+  const { customerDialogRow: row } = useSelector((state) => state.basicSetup.customers);
 
-    const closeEditDialog = () => {
-        closeEdit();
-    };
+  const closeEditDialog = () => {
+    close();
+  };
 
-    const callPut = ( data )=>{
-        try {
-           axios.put(`${process.env.REACT_APP_WILL_WIN_API}/customer/${row.id}`, data); 
-           closeEdit();
-           dispatch( setCustomerIsLoaded(false));
-        } catch (error) {
-            console.log(error);
-        }
-    };
+  const callPut = (data) => {
+    try {
+      axios.put(`${process.env.REACT_APP_WILL_WIN_API}/customer/${row.id}`, data);
+      close();
+      dispatch(setCustomerIsLoaded(false));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    return (
-        <div>
-            <Dialog fullWidth open={openEdit} aria-labelledby="form-dialog-title">
-                {openEdit && (
-                    <>
-                        <DialogTitle id="form-dialog-title">顧客資料修改</DialogTitle>
-                        <DialogContent>
-                            <Stack spacing={3}>
-                            <Formik
-                                initialValues={{
-                                    company: row.company,
-                                    contact:row.contact,
-                                    status:row.status,
-                                    phone:row.phone,
-                                    cellphone:row.cellphone,
-                                    address:row.address
-                                }}
-                                onSubmit={ async (values)=> {
-                                    callPut(values);
-                                    dispatch(openSnackbar({
-                                        open:true,
-                                        message:"修改成功",
-                                        alert:{
-                                            color:'success'
-                                        },
-                                        close: false
-                                    }))
-                                    }}
-                                >
-                                {({ handleBlur, handleChange, handleSubmit, isSubmitting, values }) => (
-                                    <form noValidate onSubmit={handleSubmit} {...others}>
-                                        <Grid>
-                                            <InputLabel>公司編號：{row.company}</InputLabel>
-                                        </Grid>
-                                        <Grid sx={{ mt: 2 }} container alignItems="center" justifyContent="space-between">
-                                            <Grid item xs={5}>
-                                                <FormControl fullWidth>
+  return (
+    <div>
+      <Dialog fullWidth open={open} aria-labelledby="form-dialog-title">
+        {open && (
+          <>
+            <DialogTitle id="form-dialog-title">顧客資料修改</DialogTitle>
+            <DialogContent>
+              <Stack spacing={3}>
+                <Formik
+                  initialValues={{
+                    company: row.company,
+                    contact: row.contact,
+                    status: row.status,
+                    phone: row.phone,
+                    cellphone: row.cellphone,
+                    address: row.address
+                  }}
+                  validationSchema={Yup.object().shape({
+                    company: Yup.string().required('請輸入材料名稱'),
+                    contact: Yup.string().required('請選擇狀態'),
+                    status: Yup.string().required('請輸入備註內容'),
+                    phone: Yup.number().required('請輸入電話號碼'),
+                    cellphone: Yup.number().required('請輸入手機號碼'),
+                    address: Yup.string().required('請輸入地址')
+                  })}
+                  onSubmit={async (values) => {
+                    console.log(values);
+                    callPut(values);
+                    dispatch(
+                      openSnackbar({
+                        open: true,
+                        message: '修改成功',
+                        alert: {
+                          color: 'success'
+                        },
+                        close: false
+                      })
+                    );
+                  }}
+                >
+                  {({ handleChange, handleSubmit, isSubmitting, values, errors, touched }) => (
+                    <form noValidate onSubmit={handleSubmit} {...others}>
+                      <Grid>
+                        <InputLabel>公司編號：{row.company}</InputLabel>
+                      </Grid>
+                      <Grid sx={{ mt: 2 }} container alignItems="center" justifyContent="space-between">
+                        <Grid item xs={5}>
+                          {/* <FormControl fullWidth>
                                                     <InputLabel htmlFor="contact">聯絡人</InputLabel>
                                                     <OutlinedInput
                                                         id="contact"
@@ -93,9 +106,21 @@ const FormDialog = ({ ...others }) => {
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
                                                     />
-                                                </FormControl>
-                                            </Grid>
-                                            <Grid item xs={5}>
+                                                </FormControl> */}
+                          <TextField
+                            fullWidth
+                            margin="normal"
+                            required
+                            id="contact"
+                            name="contact"
+                            label="聯絡人"
+                            defaultValue={values.contact}
+                            onChange={handleChange}
+                            error={Boolean(touched.contact && errors.contact)}
+                            helperText={touched.contact && errors.contact}
+                          />
+                        </Grid>
+                        {/* <Grid item xs={5}>
                                                 <FormControl fullWidth>
                                                     <InputLabel htmlFor="status">狀態</InputLabel>
                                                     <Select
@@ -111,9 +136,9 @@ const FormDialog = ({ ...others }) => {
                                                         <MenuItem value={3}>Processing</MenuItem>
                                                     </Select>
                                                 </FormControl>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid sx={{ mt: 2 }} container alignItems="center" justifyContent="space-between">
+                                            </Grid> */}
+                      </Grid>
+                      {/* <Grid sx={{ mt: 2 }} container alignItems="center" justifyContent="space-between">
                                             <Grid item xs={5}>
                                                 <FormControl fullWidth>
                                                     <InputLabel htmlFor="phone">公司電話</InputLabel>
@@ -195,27 +220,27 @@ const FormDialog = ({ ...others }) => {
                                                 onBlur={handleBlur}
                                                 onChange={handleChange}
                                             />
-                                        </FormControl>
-                                        <DialogActions sx={{ mt: 2 }}>
-                                            <AnimateButton>
-                                                <Button sx={{ color: theme.palette.error.dark }} onClick={closeEditDialog} color="secondary">
-                                                    取消
-                                                </Button>
-                                                <Button disabled={isSubmitting} size="small" type="submit" variant="contained">
-                                                    修改
-                                                </Button>
-                                            </AnimateButton>
-                                        </DialogActions>
-                                    </form>
-                                )}
-                                </Formik>
-                            </Stack>
-                        </DialogContent>
-                    </>
-                )}
-            </Dialog>
-        </div>
-    );
+                                        </FormControl> */}
+                      <DialogActions sx={{ mt: 2 }}>
+                        <AnimateButton>
+                          <Button sx={{ color: theme.palette.error.dark }} onClick={closeEditDialog} color="secondary">
+                            取消
+                          </Button>
+                          <Button disabled={isSubmitting} size="small" type="submit" variant="contained">
+                            修改
+                          </Button>
+                        </AnimateButton>
+                      </DialogActions>
+                    </form>
+                  )}
+                </Formik>
+              </Stack>
+            </DialogContent>
+          </>
+        )}
+      </Dialog>
+    </div>
+  );
 };
 
-export default FormDialog;
+export default CustomerEdit;

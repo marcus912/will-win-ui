@@ -17,40 +17,40 @@ import { gridSpacing } from 'store/constant';
 // ==============================|| UI TREEVIEW ||============================== //
 
 const UITreeview = () => (
-    <MainCard title="Treeview" secondary={<SecondaryAction link="https://next.material-ui.com/components/tree-view/" />}>
-        <Grid container spacing={gridSpacing}>
-            <Grid item xs={12} md={6} lg={4}>
-                <SubCard title="Basic">
-                    <FileSystemNavigator />
-                </SubCard>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-                <SubCard title="Multi Selection">
-                    <MultiSelectTreeView />
-                </SubCard>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-                <SubCard title="Controlled">
-                    <ControlledTreeView />
-                </SubCard>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-                <SubCard title="Recursive">
-                    <RecursiveTreeView />
-                </SubCard>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-                <SubCard title="Customized">
-                    <CustomizedTreeView />
-                </SubCard>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-                <SubCard title="Gmail Clone">
-                    <GmailTreeView />
-                </SubCard>
-            </Grid>
-        </Grid>
-    </MainCard>
+  <MainCard title="Treeview" secondary={<SecondaryAction link="https://next.material-ui.com/components/tree-view/" />}>
+    <Grid container spacing={gridSpacing}>
+      <Grid item xs={12} md={6} lg={4}>
+        <SubCard title="Basic">
+          <FileSystemNavigator />
+        </SubCard>
+      </Grid>
+      <Grid item xs={12} md={6} lg={4}>
+        <SubCard title="Multi Selection">
+          <MultiSelectTreeView />
+        </SubCard>
+      </Grid>
+      <Grid item xs={12} md={6} lg={4}>
+        <SubCard title="Controlled">
+          <ControlledTreeView />
+        </SubCard>
+      </Grid>
+      <Grid item xs={12} md={6} lg={4}>
+        <SubCard title="Recursive">
+          <RecursiveTreeView />
+        </SubCard>
+      </Grid>
+      <Grid item xs={12} md={6} lg={4}>
+        <SubCard title="Customized">
+          <CustomizedTreeView />
+        </SubCard>
+      </Grid>
+      <Grid item xs={12} md={6} lg={4}>
+        <SubCard title="Gmail Clone">
+          <GmailTreeView />
+        </SubCard>
+      </Grid>
+    </Grid>
+  </MainCard>
 );
 
 export default UITreeview;

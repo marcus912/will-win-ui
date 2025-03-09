@@ -4,7 +4,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 // project imports
-import basicSetupReducer from './slices/basic-settings'
+import basicSetupReducer from './slices/basic-settings';
 import snackbarReducer from './slices/snackbar';
 import customerReducer from './slices/customer';
 import contactReducer from './slices/contact';
@@ -20,25 +20,25 @@ import menuReducer from './slices/menu';
 // ==============================|| COMBINE REDUCER ||============================== //
 
 const reducer = combineReducers({
-    basicSetup: basicSetupReducer,
-    snackbar: snackbarReducer,
-    cart: persistReducer(
-        {
-            key: 'cart',
-            storage,
-            keyPrefix: 'berry-'
-        },
-        cartReducer
-    ),
-    kanban: kanbanReducer,
-    customer: customerReducer,
-    contact: contactReducer,
-    product: productReducer,
-    chat: chatReducer,
-    calendar: calendarReducer,
-    mail: mailReducer,
-    user: userReducer,
-    menu: menuReducer
+  basicSetup: basicSetupReducer,
+  snackbar: snackbarReducer,
+  cart: persistReducer(
+    {
+      key: 'cart',
+      storage,
+      keyPrefix: 'berry-'
+    },
+    cartReducer
+  ),
+  kanban: kanbanReducer,
+  customer: customerReducer,
+  contact: contactReducer,
+  product: productReducer,
+  chat: chatReducer,
+  calendar: calendarReducer,
+  mail: mailReducer,
+  user: userReducer,
+  menu: menuReducer
 });
 
 export default reducer;

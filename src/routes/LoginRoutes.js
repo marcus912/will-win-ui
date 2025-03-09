@@ -16,36 +16,36 @@ const AuthCheckMail = Loadable(lazy(() => import('views/pages/authentication/aut
 // ==============================|| AUTH ROUTING ||============================== //
 
 const LoginRoutes = {
-    path: '/',
-    element: (
-        <NavMotion>
-            <GuestGuard>
-                <MinimalLayout />
-            </GuestGuard>
-        </NavMotion>
-    ),
-    children: [
-        {
-            path: '/login',
-            element: <AuthLogin />
-        },
-        {
-            path: '/register',
-            element: <AuthRegister />
-        },
-        {
-            path: '/forgot',
-            element: <AuthForgotPassword />
-        },
-        {
-            path: '/reset-password',
-            element: <AuthResetPassword />
-        },
-        {
-            path: '/check-mail',
-            element: <AuthCheckMail />
-        }
-    ]
+  path: '/',
+  element: (
+    <NavMotion>
+      <GuestGuard>
+        <MinimalLayout />
+      </GuestGuard>
+    </NavMotion>
+  ),
+  children: [
+    {
+      path: '/login',
+      element: <AuthLogin />
+    },
+    {
+      path: '/register',
+      element: <AuthRegister />
+    },
+    {
+      path: '/forgot',
+      element: <AuthForgotPassword />
+    },
+    {
+      path: '/reset-password',
+      element: <AuthResetPassword />
+    },
+    {
+      path: '/check-mail',
+      element: <AuthCheckMail />
+    }
+  ]
 };
 
 export default LoginRoutes;

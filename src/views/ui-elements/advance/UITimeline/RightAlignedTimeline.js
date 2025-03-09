@@ -4,35 +4,35 @@ import { Timeline, TimelineItem, TimelineSeparator, TimelineConnector, TimelineC
 // ==============================|| UI TIMELINE - RIGHT ALIGNED ||============================== //
 
 export default function RightAlignedTimeline() {
-    return (
-        <Timeline position="right">
-            <TimelineItem>
-                <TimelineSeparator>
-                    <TimelineDot />
-                    <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>Eat</TimelineContent>
-            </TimelineItem>
-            <TimelineItem>
-                <TimelineSeparator>
-                    <TimelineDot />
-                    <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>Code</TimelineContent>
-            </TimelineItem>
-            <TimelineItem>
-                <TimelineSeparator>
-                    <TimelineDot />
-                    <TimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>Sleep</TimelineContent>
-            </TimelineItem>
-            <TimelineItem>
-                <TimelineSeparator>
-                    <TimelineDot />
-                </TimelineSeparator>
-                <TimelineContent>Repeat</TimelineContent>
-            </TimelineItem>
-        </Timeline>
-    );
+  return (
+    <Timeline position="right">
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Eat</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Code</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Sleep</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+        </TimelineSeparator>
+        <TimelineContent>Repeat</TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  );
 }

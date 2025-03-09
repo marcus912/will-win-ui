@@ -26,29 +26,29 @@ import SatisfactionChartCardData from './satisfaction-chart';
 // ==============================|| WIDGET - CHART DATA OBJECT ||============================== //
 
 const chartData = {
-    TotalLineCardChart1,
-    TotalLineCardChart2,
-    TotalLineCardChart3,
+  TotalLineCardChart1,
+  TotalLineCardChart2,
+  TotalLineCardChart3,
 
-    MarketChartCardData,
-    RevenueChartCardData,
+  MarketChartCardData,
+  RevenueChartCardData,
 
-    SeoChartCardData4,
-    SeoChartCardData5,
-    SeoChartCardData6,
-    SeoChartCardData7,
-    SeoChartCardData8,
-    SeoChartCardData9,
+  SeoChartCardData4,
+  SeoChartCardData5,
+  SeoChartCardData6,
+  SeoChartCardData7,
+  SeoChartCardData8,
+  SeoChartCardData9,
 
-    SalesLineCardChart,
-    AnalyticsChartCardData,
+  SalesLineCardChart,
+  AnalyticsChartCardData,
 
-    SeoChartCardData1,
-    SeoChartCardData2,
-    SeoChartCardData3,
+  SeoChartCardData1,
+  SeoChartCardData2,
+  SeoChartCardData3,
 
-    ConversionsChartCardData,
-    SatisfactionChartCardData
+  ConversionsChartCardData,
+  SatisfactionChartCardData
 };
 
 export default chartData;

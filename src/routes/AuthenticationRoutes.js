@@ -43,118 +43,118 @@ const PagesPrivacyPolicy = Loadable(lazy(() => import('views/pages/saas-pages/Pr
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
 const AuthenticationRoutes = {
-    path: '/',
-    element: <MinimalLayout />,
-    children: [
-        {
-            path: '/pages/login/login1',
-            element: <AuthLogin1 />
-        },
-        {
-            path: '/pages/register/register1',
-            element: <AuthRegister1 />
-        },
-        {
-            path: '/pages/forgot-password/forgot-password1',
-            element: <AuthForgotPassword1 />
-        },
-        {
-            path: '/pages/check-mail/check-mail1',
-            element: <AuthCheckMail1 />
-        },
-        {
-            path: '/pages/reset-password/reset-password1',
-            element: <AuthResetPassword1 />
-        },
-        {
-            path: '/pages/code-verification/code-verification1',
-            element: <AuthCodeVerification1 />
-        },
+  path: '/',
+  element: <MinimalLayout />,
+  children: [
+    {
+      path: '/pages/login/login1',
+      element: <AuthLogin1 />
+    },
+    {
+      path: '/pages/register/register1',
+      element: <AuthRegister1 />
+    },
+    {
+      path: '/pages/forgot-password/forgot-password1',
+      element: <AuthForgotPassword1 />
+    },
+    {
+      path: '/pages/check-mail/check-mail1',
+      element: <AuthCheckMail1 />
+    },
+    {
+      path: '/pages/reset-password/reset-password1',
+      element: <AuthResetPassword1 />
+    },
+    {
+      path: '/pages/code-verification/code-verification1',
+      element: <AuthCodeVerification1 />
+    },
 
-        {
-            path: '/pages/login/login2',
-            element: <AuthLogin2 />
-        },
-        {
-            path: '/pages/register/register2',
-            element: <AuthRegister2 />
-        },
-        {
-            path: '/pages/forgot-password/forgot-password2',
-            element: <AuthForgotPassword2 />
-        },
-        {
-            path: '/pages/check-mail/check-mail2',
-            element: <AuthCheckMail2 />
-        },
-        {
-            path: '/pages/reset-password/reset-password2',
-            element: <AuthResetPassword2 />
-        },
-        {
-            path: '/pages/code-verification/code-verification2',
-            element: <AuthCodeVerification2 />
-        },
+    {
+      path: '/pages/login/login2',
+      element: <AuthLogin2 />
+    },
+    {
+      path: '/pages/register/register2',
+      element: <AuthRegister2 />
+    },
+    {
+      path: '/pages/forgot-password/forgot-password2',
+      element: <AuthForgotPassword2 />
+    },
+    {
+      path: '/pages/check-mail/check-mail2',
+      element: <AuthCheckMail2 />
+    },
+    {
+      path: '/pages/reset-password/reset-password2',
+      element: <AuthResetPassword2 />
+    },
+    {
+      path: '/pages/code-verification/code-verification2',
+      element: <AuthCodeVerification2 />
+    },
 
-        {
-            path: '/pages/login/login3',
-            element: <AuthLogin3 />
-        },
-        {
-            path: '/pages/register/register3',
-            element: <AuthRegister3 />
-        },
-        {
-            path: '/pages/forgot-password/forgot-password3',
-            element: <AuthForgotPassword3 />
-        },
-        {
-            path: '/pages/check-mail/check-mail3',
-            element: <AuthCheckMail3 />
-        },
-        {
-            path: '/pages/reset-password/reset-password3',
-            element: <AuthResetPassword3 />
-        },
-        {
-            path: '/pages/code-verification/code-verification3',
-            element: <AuthCodeVerification3 />
-        },
+    {
+      path: '/pages/login/login3',
+      element: <AuthLogin3 />
+    },
+    {
+      path: '/pages/register/register3',
+      element: <AuthRegister3 />
+    },
+    {
+      path: '/pages/forgot-password/forgot-password3',
+      element: <AuthForgotPassword3 />
+    },
+    {
+      path: '/pages/check-mail/check-mail3',
+      element: <AuthCheckMail3 />
+    },
+    {
+      path: '/pages/reset-password/reset-password3',
+      element: <AuthResetPassword3 />
+    },
+    {
+      path: '/pages/code-verification/code-verification3',
+      element: <AuthCodeVerification3 />
+    },
 
-        {
-            path: '/pages/error',
-            element: <MaintenanceError />
-        },
-        {
-            path: '/pages/coming-soon1',
-            element: <MaintenanceComingSoon1 />
-        },
-        {
-            path: '/pages/coming-soon2',
-            element: <MaintenanceComingSoon2 />
-        },
-        {
-            path: '/pages/under-construction',
-            element: <MaintenanceUnderConstruction />
-        },
+    {
+      path: '/pages/error',
+      element: <MaintenanceError />
+    },
+    {
+      path: '/pages/coming-soon1',
+      element: <MaintenanceComingSoon1 />
+    },
+    {
+      path: '/pages/coming-soon2',
+      element: <MaintenanceComingSoon2 />
+    },
+    {
+      path: '/pages/under-construction',
+      element: <MaintenanceUnderConstruction />
+    },
 
-        {
-            path: '/pages/landing',
-            element: <PagesLanding />
-        },
-        {
-            path: '/pages/contact-us',
-            element: <PagesContactUS />
-        },
-        {
-            path: '/pages/faqs',
-            element: <PagesFaqs />
-        },
-        {
-            path: '/pages/privacy-policy',
-            element: <PagesPrivacyPolicy />
-        }
-    ]
+    {
+      path: '/pages/landing',
+      element: <PagesLanding />
+    },
+    {
+      path: '/pages/contact-us',
+      element: <PagesContactUS />
+    },
+    {
+      path: '/pages/faqs',
+      element: <PagesFaqs />
+    },
+    {
+      path: '/pages/privacy-policy',
+      element: <PagesPrivacyPolicy />
+    }
+  ]
 };
 
 export default AuthenticationRoutes;

@@ -14,25 +14,25 @@ import { gridSpacing } from 'store/constant';
 // =============================|| UI SPEEDDIAL ||============================= //
 
 const UISpeeddial = () => (
-    <MainCard title="Speeddial" secondary={<SecondaryAction link="https://next.material-ui.com/components/speed-dial/" />}>
-        <Grid container spacing={gridSpacing}>
-            <Grid item xs={12} md={12} lg={6}>
-                <SubCard title="Basic">
-                    <SimpleSpeedDials />
-                </SubCard>
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <SubCard title="Custom Close Icon">
-                    <OpenIconSpeedDial />
-                </SubCard>
-            </Grid>
-            <Grid item xs={12} md={6}>
-                <SubCard title="Persistent Icon">
-                    <SpeedDialTooltipOpen />
-                </SubCard>
-            </Grid>
-        </Grid>
-    </MainCard>
+  <MainCard title="Speeddial" secondary={<SecondaryAction link="https://next.material-ui.com/components/speed-dial/" />}>
+    <Grid container spacing={gridSpacing}>
+      <Grid item xs={12} md={12} lg={6}>
+        <SubCard title="Basic">
+          <SimpleSpeedDials />
+        </SubCard>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <SubCard title="Custom Close Icon">
+          <OpenIconSpeedDial />
+        </SubCard>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <SubCard title="Persistent Icon">
+          <SpeedDialTooltipOpen />
+        </SubCard>
+      </Grid>
+    </Grid>
+  </MainCard>
 );
 
 export default UISpeeddial;

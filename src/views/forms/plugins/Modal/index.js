@@ -7,10 +7,10 @@ import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
 // ==============================|| MODAL PAGE ||============================== //
 
 const Modal = () => (
-    <MainCard title="Simple Modal" secondary={<SecondaryAction link="https://next.material-ui.com/components/modal/" />}>
-        <ServerModal />
-        <SimpleModal />
-    </MainCard>
+  <MainCard title="Simple Modal" secondary={<SecondaryAction link="https://next.material-ui.com/components/modal/" />}>
+    <ServerModal />
+    <SimpleModal />
+  </MainCard>
 );
 
 export default Modal;

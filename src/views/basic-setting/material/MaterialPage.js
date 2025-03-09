@@ -1,15 +1,7 @@
 import * as React from 'react';
 
 // material-ui
-import {
-    CardContent,
-    Fab,
-    Grid,
-    IconButton,
-    InputAdornment,
-    TextField,
-    Tooltip,
-} from '@mui/material';
+import { CardContent, Fab, Grid, IconButton, InputAdornment, TextField, Tooltip } from '@mui/material';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -28,106 +20,111 @@ import AddDialog from './MaterialAddDialog';
 // ==============================|| Material LIST ||============================== //
 
 const MaterialPage = () => {
-    const [search, setSearch] = React.useState('');
-    const [rows, setRows] = React.useState([]);
-    const [filter, setFilter] = React.useState([])
-    const [open, setOpen] = React.useState(false);
-    const [addOpen, setAddOpen] =React.useState(false)
-    const { materialList } = useSelector((state) => state.basicSetup.material);
-    
-    React.useEffect(() => {
-        setRows(materialList);
-        setFilter(materialList);
-    }, [materialList]);
+  const [search, setSearch] = React.useState('');
+  const [rows, setRows] = React.useState([]);
+  const [filter, setFilter] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [addOpen, setAddOpen] = React.useState(false);
+  const { materialList } = useSelector((state) => state.basicSetup.material);
 
-    //console.log('1.MaterialPage')
-    //搜尋bar功能
-    const handleSearch = (event) => {
-        const newString = event?.target.value;
-        setSearch(newString || '');
+  React.useEffect(() => {
+    setRows(materialList);
+    setFilter(materialList);
+  }, [materialList]);
 
-        if (newString) {
-            const newRows = filter.filter((row) => {
-                let matches = true;
+  //console.log('1.MaterialPage')
+  //搜尋bar功能
+  const handleSearch = (event) => {
+    const newString = event?.target.value;
+    setSearch(newString || '');
 
-                const properties = [ 'id','name', 'comment'];
-                let containsQuery = false;
+    if (newString) {
+      const newRows = filter.filter((row) => {
+        let matches = true;
 
-                properties.forEach((property) => {
-                    if (row[property].toString().toLowerCase().includes(newString.toString().toLowerCase())) {
-                        containsQuery = true;
-                    }
-                });
+        const properties = ['id', 'name', 'comment'];
+        let containsQuery = false;
 
-                if (!containsQuery) {
-                    matches = false;
-                }
+        properties.forEach((property) => {
+          if (row[property].toString().toLowerCase().includes(newString.toString().toLowerCase())) {
+            containsQuery = true;
+          }
+        });
 
-                return matches;
-            });
-            setRows(newRows);
-        } else {
-            setRows(materialList);
+        if (!containsQuery) {
+          matches = false;
         }
-    };
 
-    const handleAddOpen = () => {
-        setAddOpen(true)
-    };
+        return matches;
+      });
+      setRows(newRows);
+    } else {
+      setRows(materialList);
+    }
+  };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+  const handleAddOpen = () => {
+    setAddOpen(true);
+  };
 
-    return (
-        <MainCard  content={false}>
-            <CardContent>
-                <Grid container justifyContent="space-between" alignItems="center" spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            InputProps={{
-                                startAdornment: (
-                                    <InputAdornment position="start">
-                                        <SearchIcon fontSize="small" />
-                                    </InputAdornment>
-                                )
-                            }}
-                            onChange={handleSearch}
-                            placeholder="Search Order"
-                            value={search}
-                            size="small"
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6} sx={{ textAlign: 'right' }}>
-                        <Tooltip title="Copy">
-                            <IconButton size="large">
-                                <FileCopyIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Print">
-                            <IconButton size="large">
-                                <PrintIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Filter">
-                            <IconButton size="large">
-                                <FilterListIcon />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Add Product">
-                            <Fab color="primary" size="small" sx={{ boxShadow: 'none', ml: 1, width: 32, height: 32, minHeight: 32 }} onClick={handleAddOpen}>
-                                <AddIcon fontSize="small" />
-                            </Fab>
-                        </Tooltip>
-                    </Grid>
-                </Grid>
-            </CardContent>
-            {/* table */}
-            <MaterialList rows={rows} setOpen={setOpen}></MaterialList>
-            <AddDialog addOpen={addOpen} setAddOpen={setAddOpen}></AddDialog>
-            <FormDialog open={open} onClose={handleClose}></FormDialog>
-        </MainCard>
-    );
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <MainCard content={false}>
+      <CardContent>
+        <Grid container justifyContent="space-between" alignItems="center" spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon fontSize="small" />
+                  </InputAdornment>
+                )
+              }}
+              onChange={handleSearch}
+              placeholder="Search Order"
+              value={search}
+              size="small"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6} sx={{ textAlign: 'right' }}>
+            <Tooltip title="Copy">
+              <IconButton size="large">
+                <FileCopyIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Print">
+              <IconButton size="large">
+                <PrintIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Filter">
+              <IconButton size="large">
+                <FilterListIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Add Product">
+              <Fab
+                color="primary"
+                size="small"
+                sx={{ boxShadow: 'none', ml: 1, width: 32, height: 32, minHeight: 32 }}
+                onClick={handleAddOpen}
+              >
+                <AddIcon fontSize="small" />
+              </Fab>
+            </Tooltip>
+          </Grid>
+        </Grid>
+      </CardContent>
+      {/* table */}
+      <MaterialList rows={rows} setOpen={setOpen}></MaterialList>
+      <AddDialog addOpen={addOpen} setAddOpen={setAddOpen}></AddDialog>
+      <FormDialog open={open} onClose={handleClose}></FormDialog>
+    </MainCard>
+  );
 };
 
 export default MaterialPage;

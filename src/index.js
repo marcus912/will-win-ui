@@ -20,15 +20,15 @@ import 'assets/scss/style.scss';
 const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
-    <Provider store={store}>
-        <PersistGate loading={null} persistor={persister}>
-            <ConfigProvider>
-                <BrowserRouter basename={process.env.REACT_APP_BASE_NAME}>
-                    <App />
-                </BrowserRouter>
-            </ConfigProvider>
-        </PersistGate>
-    </Provider>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persister}>
+      <ConfigProvider>
+        <BrowserRouter basename={process.env.REACT_APP_BASE_NAME}>
+          <App />
+        </BrowserRouter>
+      </ConfigProvider>
+    </PersistGate>
+  </Provider>
 );
 
 // If you want your app to work offline and load faster, you can change

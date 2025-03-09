@@ -9,11 +9,10 @@ import utilities from './utilities';
 import support from './support';
 import other from './other';
 
-
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-    items: [dashboard, basicSettings, application, forms, elements, samplePage, pages, utilities, support, other]
+  items: [dashboard, basicSettings, application, forms, elements, samplePage, pages, utilities, support, other]
 };
 
 export default menuItems;

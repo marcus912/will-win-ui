@@ -13,20 +13,20 @@ import { IconDeviceFloppy } from '@tabler/icons';
 // ==============================|| CSV Export ||============================== //
 
 export const CSVExport = ({ data, filename, headers }) => {
-    const theme = useTheme();
+  const theme = useTheme();
 
-    return (
-        <Tooltip title="CSV Export" placement="left">
-            <ButtonBase sx={{ mt: 0.5 }}>
-                <CSVLink data={data} filename={filename} headers={headers}>
-                    <IconDeviceFloppy color={theme.palette.secondary.main} aria-label="Export CSV File" />
-                </CSVLink>
-            </ButtonBase>
-        </Tooltip>
-    );
+  return (
+    <Tooltip title="CSV Export" placement="left">
+      <ButtonBase sx={{ mt: 0.5 }}>
+        <CSVLink data={data} filename={filename} headers={headers}>
+          <IconDeviceFloppy color={theme.palette.secondary.main} aria-label="Export CSV File" />
+        </CSVLink>
+      </ButtonBase>
+    </Tooltip>
+  );
 };
 CSVExport.propTypes = {
-    data: PropTypes.object,
-    filename: PropTypes.string,
-    headers: PropTypes.object
+  data: PropTypes.object,
+  filename: PropTypes.string,
+  headers: PropTypes.object
 };

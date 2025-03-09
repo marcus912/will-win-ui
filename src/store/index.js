@@ -10,8 +10,8 @@ import rootReducer from './reducer';
 // ==============================|| REDUX - MAIN STORE ||============================== //
 
 const store = configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false, immutableCheck: false })
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false, immutableCheck: false })
 });
 
 const persister = persistStore(store);

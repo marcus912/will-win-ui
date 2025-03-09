@@ -16,74 +16,74 @@ import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroidTwoTone';
 // ============================|| UI TOGGLE BUTTON - NO EMPTY ||============================ //
 
 export default function ToggleButtonNotEmpty() {
-    const theme = useTheme();
+  const theme = useTheme();
 
-    const [formats, setFormats] = React.useState(() => ['phone']);
-    const handleFormat = (event, newFormats) => {
-        if (newFormats.length) {
-            setFormats(newFormats);
-        }
-    };
+  const [formats, setFormats] = React.useState(() => ['phone']);
+  const handleFormat = (event, newFormats) => {
+    if (newFormats.length) {
+      setFormats(newFormats);
+    }
+  };
 
-    const [alignment, setAlignment] = React.useState('left');
-    const handleAlignment = (event, newAlignment) => {
-        if (newAlignment !== null) {
-            setAlignment(newAlignment);
-        }
-    };
+  const [alignment, setAlignment] = React.useState('left');
+  const handleAlignment = (event, newAlignment) => {
+    if (newAlignment !== null) {
+      setAlignment(newAlignment);
+    }
+  };
 
-    return (
-        <Grid container spacing={2} direction="column" alignItems="center">
-            <Grid item xs={12}>
-                <div>
-                    <ToggleButtonGroup
-                        value={alignment}
-                        exclusive
-                        onChange={handleAlignment}
-                        aria-label="text alignment"
-                        sx={{
-                            color: theme.palette.success.dark,
-                            bgcolor: theme.palette.mode === 'dark' ? theme.palette.dark[800] : theme.palette.primary.light
-                        }}
-                    >
-                        <ToggleButton value="left" aria-label="left aligned">
-                            <FormatAlignLeftIcon />
-                        </ToggleButton>
-                        <ToggleButton value="center" aria-label="centered">
-                            <FormatAlignCenterIcon />
-                        </ToggleButton>
-                        <ToggleButton value="right" aria-label="right aligned">
-                            <FormatAlignRightIcon />
-                        </ToggleButton>
-                        <ToggleButton value="justify" aria-label="justified" disabled>
-                            <FormatAlignJustifyIcon />
-                        </ToggleButton>
-                    </ToggleButtonGroup>
-                </div>
-            </Grid>
-            <Grid item xs={12}>
-                <div>
-                    <ToggleButtonGroup
-                        value={formats}
-                        onChange={handleFormat}
-                        aria-label="device"
-                        sx={{
-                            color: theme.palette.warning.dark,
-                            bgcolor: theme.palette.mode === 'dark' ? theme.palette.dark[800] : theme.palette.primary.light
-                        }}
-                    >
-                        <ToggleButton value="laptop" aria-label="laptop">
-                            <LaptopIcon />
-                        </ToggleButton>
-                        <ToggleButton value="tv" aria-label="tv">
-                            <TvIcon />
-                        </ToggleButton>
-                        <ToggleButton value="phone" aria-label="phone">
-                            <PhoneAndroidIcon />
-                        </ToggleButton>
-                    </ToggleButtonGroup>
-                </div>
-            </Grid>
-        </Grid>
-    );
+  return (
+    <Grid container spacing={2} direction="column" alignItems="center">
+      <Grid item xs={12}>
+        <div>
+          <ToggleButtonGroup
+            value={alignment}
+            exclusive
+            onChange={handleAlignment}
+            aria-label="text alignment"
+            sx={{
+              color: theme.palette.success.dark,
+              bgcolor: theme.palette.mode === 'dark' ? theme.palette.dark[800] : theme.palette.primary.light
+            }}
+          >
+            <ToggleButton value="left" aria-label="left aligned">
+              <FormatAlignLeftIcon />
+            </ToggleButton>
+            <ToggleButton value="center" aria-label="centered">
+              <FormatAlignCenterIcon />
+            </ToggleButton>
+            <ToggleButton value="right" aria-label="right aligned">
+              <FormatAlignRightIcon />
+            </ToggleButton>
+            <ToggleButton value="justify" aria-label="justified" disabled>
+              <FormatAlignJustifyIcon />
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </div>
+      </Grid>
+      <Grid item xs={12}>
+        <div>
+          <ToggleButtonGroup
+            value={formats}
+            onChange={handleFormat}
+            aria-label="device"
+            sx={{
+              color: theme.palette.warning.dark,
+              bgcolor: theme.palette.mode === 'dark' ? theme.palette.dark[800] : theme.palette.primary.light
+            }}
+          >
+            <ToggleButton value="laptop" aria-label="laptop">
+              <LaptopIcon />
+            </ToggleButton>
+            <ToggleButton value="tv" aria-label="tv">
+              <TvIcon />
+            </ToggleButton>
+            <ToggleButton value="phone" aria-label="phone">
+              <PhoneAndroidIcon />
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </div>
+      </Grid>
+    </Grid>
+  );
 }
